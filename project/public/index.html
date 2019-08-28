@@ -28,21 +28,27 @@
     <title>React App</title>
   </head>
   <body>
-
-      First Name: <input type="text" id="myText" value="Mickey">
+      First Name: <textarea name="text" id="myText" cols="40" rows="5"></textarea>
 
       <p>Click the button to display the value of the value attribute of the text field.</p>
       
       <button onclick="myFunction()">Try it</button>
       
-      <p id="demo">ESIGEWG</p>
+      <textarea name="text2" id="demo" cols="40" rows="5"></textarea>
+
+      <button id="check", onclick="postToServer()">TEST</button>
 
       <script>
           function myFunction() {
             var x = document.getElementById("myText").value;
             document.getElementById("demo").innerHTML = x;
           }
-        </script>
+
+          function postToServer() {
+            var code = $("#myText").val();
+            $.ajax({url:"http://localhost:8000", type: "POST", data: {code}});
+          }
+      </script>
 
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
