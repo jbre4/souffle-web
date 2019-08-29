@@ -1,3 +1,0 @@
-.decl A(a:number)
-A(1).
-.output A(IO=stdout)

@@ -51,7 +51,7 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
 		if path == "/":
 			path = "/index.html"
 		
-		path = "." + path
+		path = "www" + path
 		
 		if os.path.isdir(path):
 			self.send_error(403)
