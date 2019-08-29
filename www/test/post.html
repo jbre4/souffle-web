@@ -1,0 +1,14 @@
+Page for testing the server. Fill out the fields and hit `Custom POST` to send a POST request to the server.
+
+<form onsubmit="do_post(); return false">
+	URL: <input id="post_url" type="text" value="/api/run"><br/>
+	Body: <textarea id="post_body" rows="5" cols="40"></textarea><br/>
+	Content Type: <input type="text" value="text/plain" id="post_mime"></textarea>
+	<input type="submit" value="Custom POST">
+</form>
+
+Response: <span id="resp_body"></span>
+<br/>
+Content-Type: <span id="resp_mime"></span>
+
+<script src="post.js"></script>

@@ -71,15 +71,24 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
 		file = open(path, "rb")
 		self.wfile.write(file.read())
 	
-	def serve_api(self):
-		# TODO
-		self.send_error(501, "Not implemented yet")
-	
 	def do_GET(self):
+		self.serve_file()
+	
+	def api_do_run(self):
+		len = int(self.headers["Content-Length"])
+		
+		self.send_response(200)
+		self.send_header("Content-Type", self.headers["Content-Type"])
+		self.send_header("Content-Length", str(len))
+		self.end_headers()
+		
+		self.wfile.write(self.rfile.read(len))
+	
+	def do_POST(self):
 		if self.path == "/api/run":
-			self.serve_api()
+			self.api_do_run()
 		else:
-			self.serve_file()
+			self.send_error(404)
 
 sv = http.server.ThreadingHTTPServer(("", port), RequestHandler)
 print("Starting server on port " + str(port))
