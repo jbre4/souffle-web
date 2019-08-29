@@ -1,30 +1,20 @@
-function showData() {
-    var x = document.getElementById("input").value;
-    document.getElementById("output").innerHTML = x;
-}
+post_body = document.getElementById("input");
+post_url = "/api/run";
+post_mime = "text/plain";
+resp_body = document.getElementById("output");
+resp_mime = "text/plain";
 
-function sendData() {
-    var code = document.getElementById("input").value;
-    $.ajax({url:"http://localhost",
-        type: "POST",
-        data: {code: code},
-        success: function() {
-            var succ = "Success";
-            document.getElementById("output").innerHTML = succ;
-        }, 
-        error: function() {
-            var err = "Error";
-            document.getElementById("output").innerHTML = err;
-        }
-    });
+function do_post() {
+  var xhr = new XMLHttpRequest();
 
-    var data = new XMLHttpRequest();
-    data.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            // Typical action to be performed when the document is ready:
-            document.getElementById("output").innerHTML = data.responseText;
-        }
-    };
-    data.open("GET", "output.txt", true);
-    data.send();
+  xhr.onreadystatechange = function() {
+		if (this.readyState == 4) {
+			resp_body.innerText = this.response;
+			resp_mime.innerText = this.getResponseHeader("Content-Type");
+		}
+	}
+
+	xhr.open("POST", post_url, true);
+	xhr.setRequestHeader("Content-Type", post_mime);
+	xhr.send(post_body.value);
 }

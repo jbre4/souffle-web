@@ -2,16 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <script src="index.js"></script>
+
   </head>
   <body>
     <p>Input</p>
-    <textarea name="input" id="input" cols="50" rows="10"></textarea>
-    <br>
-    <br>
-    <button id="show", onclick="showData()">Test</button>
-    <button id="send", onclick="sendData()">Try</button>
+    <form onsubmit="do_post(); return false">
+      <textarea name="input" id="input" cols="50" rows="10"></textarea>
+      <br>
+      <br>
+      <input type="submit" value="Custom POST">
+    </form>
     <p>Output</p>
     <textarea name="output" id="output" cols="50" rows="10"></textarea>
+    <script src="index.js"></script>
   </body>
 </html>
