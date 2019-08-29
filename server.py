@@ -1,4 +1,5 @@
 import http.server
+import subprocess
 import os
 import sys
 
@@ -75,14 +76,28 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
 		self.serve_file()
 	
 	def api_do_run(self):
-		len = int(self.headers["Content-Length"])
+		self.error_message_format = "%(message)s"
+		length = int(self.headers["Content-Length"])
+		
+		body = self.rfile.read(length)
+		
+		try:
+			proc = subprocess.run(["souffle", "/dev/stdin", "-D", "-"], input=body, capture_output=True)
+		except FileNotFoundError:
+			self.send_error(500, "Souffle is not installed")
+			return
+		
+		if proc.returncode != 0:
+			body = proc.stderr
+		else:
+			body = proc.stdout
 		
 		self.send_response(200)
-		self.send_header("Content-Type", self.headers["Content-Type"])
-		self.send_header("Content-Length", str(len))
+		self.send_header("Content-Type", "text/plain")
+		self.send_header("Content-Length", len(body))
 		self.end_headers()
 		
-		self.wfile.write(self.rfile.read(len))
+		self.wfile.write(body)
 	
 	def do_POST(self):
 		if self.path == "/api/run":
