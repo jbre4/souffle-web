@@ -5,7 +5,6 @@ function showData() {
 
 function sendData() {
     var code = document.getElementById("input").value;
-    //document.getElementById("output").innerHTML = code;
     $.ajax({url:"http://localhost",
         type: "POST",
         data: {code: code},
