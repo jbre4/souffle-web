@@ -1,4 +1,5 @@
 import http.server
+import subprocess
 import os
 import sys
 
@@ -51,7 +52,7 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
 		if path == "/":
 			path = "/index.html"
 		
-		path = "." + path
+		path = "www" + path
 		
 		if os.path.isdir(path):
 			self.send_error(403)
@@ -71,15 +72,38 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
 		file = open(path, "rb")
 		self.wfile.write(file.read())
 	
-	def serve_api(self):
-		# TODO
-		self.send_error(501, "Not implemented yet")
-	
 	def do_GET(self):
-		if self.path == "/api/run":
-			self.serve_api()
+		self.serve_file()
+	
+	def api_do_run(self):
+		self.error_message_format = "%(message)s"
+		length = int(self.headers["Content-Length"])
+		
+		body = self.rfile.read(length)
+		
+		try:
+			proc = subprocess.run(["souffle", "/dev/stdin", "-D", "-"], input=body, capture_output=True)
+		except FileNotFoundError:
+			self.send_error(500, "Souffle is not installed")
+			return
+		
+		if proc.returncode != 0:
+			body = proc.stderr
 		else:
-			self.serve_file()
+			body = proc.stdout
+		
+		self.send_response(200)
+		self.send_header("Content-Type", "text/plain")
+		self.send_header("Content-Length", len(body))
+		self.end_headers()
+		
+		self.wfile.write(body)
+	
+	def do_POST(self):
+		if self.path == "/api/run":
+			self.api_do_run()
+		else:
+			self.send_error(404)
 
 sv = http.server.ThreadingHTTPServer(("", port), RequestHandler)
 print("Starting server on port " + str(port))
