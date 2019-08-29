@@ -39,7 +39,7 @@ def ext_to_mime(ext):
 	elif ext == ".ico":
 		return "image/x-icon"
 	
-	return "application/octect-stream"
+	return "application/octet-stream"
 
 class RequestHandler(http.server.BaseHTTPRequestHandler):
 	def serve_file(self):
