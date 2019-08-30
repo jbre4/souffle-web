@@ -1,5 +1,6 @@
 import sqlite3
 from sqlite3 import Error
+import time
 
 """ Create database connection to SQLite database
     Read and write access only, doesn't create database if it doesn't already exist """
@@ -14,30 +15,30 @@ def create_connection_rw():
         print(e)
         exit()
 
-# Insert token as tuple (identifier, timestamp)
+# Pass in token's identifier
 def insert_token(token):
 	conn = create_connection_rw()
-	sql = ''' INSERT INTO tokens(identifier, timestamp) VALUES(?, ?) '''
+	sql = ''' INSERT INTO tokens(identifier, timestamp) VALUES(?, time.time()) '''
 	cur = conn.cursor()
 	cur.execute(sql, token)
 	conn.commit()
 	cur.close()
 	conn.close()
 	
-# Insert token as tuple (identifier, timestamp)
-# Return false if token not in database, otherwise return true 
+# Pass in token's identifier
+# Return None if token not in database, otherwise return token
 def check_token(token):
     conn = create_connection_rw()
-    sql = ''' SELECT * FROM stages WHERE identifier = ? AND timestamp = ? '''
+    sql = ''' SELECT * FROM tokens WHERE identifier = ? '''
     cur = conn.cursor()
     cur.execute(sql)
     rows = cur.fetchall()
     cur.close()
     conn.close()
 	if not rows:
-		return False
+		return None
 	else:
-		return True
+		return rows[0]
 
 def main():
     print("main in database.py is running")

@@ -26,7 +26,7 @@ def main():
     sql_create_table_tokens = ''' CREATE TABLE IF NOT EXISTS tokens (
     identifier text NOT NULL,
     timestamp text NOT NULL,
-    PRIMARY KEY (identifier, timestamp)
+    PRIMARY KEY (identifier)
     ); '''
 
     conn = create_connection(database)
