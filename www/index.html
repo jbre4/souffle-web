@@ -2,18 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-
+    <link rel = "stylesheet" type = "text/css" href = "index.css" />
   </head>
   <body>
-    <p>Input</p>
-    <form onsubmit="do_post(); return false">
-      <textarea placeholder="Enter your code here..." name="input" id="input" cols="50" rows="10"></textarea>
-      <br>
-      <br>
-      <input type="submit" value="Run">
-    </form>
-    <p>Output</p>
-    <textarea readonly name="output" id="output" cols="50" rows="10"></textarea>
-    <script src="index.js"></script>
+    <div class="input_group">
+      <h2>Input</h2>
+      <form onsubmit="do_post(); return false">
+        <textarea placeholder="Enter your code here..." name="input" id="input" cols="50" rows="10"></textarea>
+        <br>
+        <br>
+        <input type="submit" value="Run">
+      </form>
+    </div>
+    <div class="output_group">
+      <h2>Output</h2>
+      <textarea readonly name="output" id="output" cols="50" rows="10"></textarea>
+      <script src="index.js"></script>
+    </div>
   </body>
 </html>
