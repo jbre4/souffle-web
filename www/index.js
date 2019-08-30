@@ -9,7 +9,7 @@ function do_post() {
 
   xhr.onreadystatechange = function() {
 		if (this.readyState == 4) {
-			resp_body.innerText = this.response;
+			resp_body.value = this.response;
 			resp_mime.innerText = this.getResponseHeader("Content-Type");
 		}
 	}
