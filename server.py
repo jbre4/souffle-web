@@ -20,26 +20,20 @@ if len(sys.argv) == 2:
 	port = int(sys.argv[1])
 
 def ext_to_mime(ext):
-	if ext == ".html":
-		return "text/html"
-	elif ext == ".css":
-		return "text/css"
-	elif ext == ".js":
-		return "application/javascript"
-	elif ext == ".png":
-		return "image/png"
-	elif ext == ".jpeg" or ext == ".jpg":
-		return "image/jpeg"
-	elif ext == ".gif":
-		return "image/gif"
-	elif ext == ".txt":
-		return "text/plain"
-	elif ext == ".json":
-		return "application/json"
-	elif ext == ".ico":
-		return "image/x-icon"
+	mimemap = {
+		".html": "text/html",
+		".css":  "text/css",
+		".js":   "application/javascript",
+		".png":  "image/png",
+		".jpg":  "image/jpeg",
+		".jpeg": "image/jpeg",
+		".gif":  "image/gif",
+		".txt":  "text/plain",
+		".json": "application/json",
+		".ico":  "image/x-icon"
+	}
 	
-	return "application/octet-stream"
+	return mimemap.get(ext, "application/octet-stream")
 
 class RequestHandler(http.server.BaseHTTPRequestHandler):
 	def serve_file(self):
