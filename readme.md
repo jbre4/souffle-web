@@ -11,6 +11,10 @@ The port is optional and defaults to 8000. The server will start serving files f
 
 You may now open `http://localhost:[port]` in your browser.
 
-**Security note:** In production it is strongly recommended to put the server behind a web server such as NGINX or Apache. `server.py` does not perform URL normalization by itself and thus makes it easy for clients to read system files by for example doing a HTTP GET to `/../../../../etc/passwd`.
+**Security note:** It is highly recommended to put the server behind a webserver such as NGINX or Apache.
 
 **TODO:** Write nginx example config.
+
+## Python Dependencies
+
+- url-normalize
