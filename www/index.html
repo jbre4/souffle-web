@@ -2,10 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="menu_bar.css" />
     <link rel = "stylesheet" type = "text/css" href = "index.css" />
     <link rel="stylesheet" type="text/css" href="cm/plugin/codemirror/lib/codemirror.css">
+
   </head>
   <body>
+    <div class="menu_bar">
+      <ul id = "menu_list">
+        <li class="home_button"><a href="index.html">HOME</a></<li>
+        <li><a href="subpages/contact_page.html">Contact</a></li>
+      </ul>
+    </div>
     <div class="input_group">
       <h2>Input</h2>
       <form onsubmit="do_post(); return false">
@@ -19,6 +27,7 @@
       <h2>Output</h2>
       <textarea readonly name="output" id="output" cols="50" rows="10"></textarea>
       <script src="index.js"></script>
+      <script src="menu_bar.js"></script>
       <script type="text/javascript" src="cm/js/jquery.min.js"></script>
       <script type="text/javascript" src="cm/plugin/codemirror/lib/codemirror.js"></script>
       <script type="text/javascript" src="cm/plugin/mode/python/python.js"></script>

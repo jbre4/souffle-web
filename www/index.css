@@ -1,10 +1,14 @@
 div.input_group{
   float:left;
   width:50%;
+  position: relative;
+  top: 50px;
 }
 div.output_group{
   float:right;
-  width:50%
+  width:50%;
+  position: relative;
+  top: 50px;
 }
 textarea {
   height:500px;
