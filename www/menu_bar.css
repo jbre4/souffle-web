@@ -10,6 +10,7 @@
   background-color: #000000;
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
 }
 .menu_bar ul li a{

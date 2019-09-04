@@ -10,9 +10,10 @@ div.output_group{
   position: relative;
   top: 50px;
 }
-textarea {
+textarea.output {
   height:500px;
-  width:95%;
+  width:80%;
+  padding: 6px 6px 6px 6px;
 }
 input[type=submit] {
     padding:5px 15px;
@@ -21,4 +22,37 @@ input[type=submit] {
     cursor:pointer;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+}
+
+
+#line{
+  position:absolute;
+  height: 495px;
+  z-index: 0;
+  padding:0;
+  margin:5px 0 0 5px;
+  border:0;
+  background:#ecf0f5;
+  width:23px;
+  text-align:left;
+  resize: none;
+  opacity: 0.5;
+}
+#row_numbers{
+  font-size: 13px;
+  height:500px;
+  overflow:hidden;
+  width:20px;
+  border:none;
+  line-height:20px;
+  text-align:center;
+  resize: none;
+}
+
+textarea.input{
+  height:500px;
+  width:80%;
+  font-size: 13px;
+  line-height:20px;
+  padding: 6px 6px 6px 30px;
 }
