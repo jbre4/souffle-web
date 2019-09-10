@@ -2,7 +2,6 @@ import http.server
 import subprocess
 import os
 import sys
-from url_normalize import url_normalize
 
 # To start the server:
 # python server.py [port]
@@ -44,7 +43,7 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
 			self.send_error(400)
 			return
 		
-		path = url_normalize(path)
+		path = os.path.normpath(path)
 		
 		if path == "/":
 			path = "/index.html"
