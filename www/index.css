@@ -1,12 +1,11 @@
 div.input_group{
-  float:left;
-  width:50%;
+  height: 700px;
+  width:100%;
   position: relative;
   top: 50px;
 }
 div.output_group{
-  float:right;
-  width:50%;
+  width:100%;
   position: relative;
   top: 50px;
 }
@@ -49,10 +48,45 @@ input[type=submit] {
   resize: none;
 }
 
+
 textarea.input{
+  width: 90%;
   height:500px;
-  width:80%;
   font-size: 13px;
   line-height:20px;
   padding: 6px 6px 6px 30px;
+}
+form#submit_input{
+  float:left;
+  width: 50%;
+}
+form#create_table{
+  float: right;
+  width: 50%;
+}
+
+div#table_area{
+  width:50%;
+  height:auto;
+  float:right;
+  table-layout:fixed;
+}
+table#input_table{
+  width:95%;
+  height:auto;
+  margin: 20px 20px 20px 20px;
+  table-layout:fixed;
+}
+table, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+tr{
+  height:25px;
+}
+td{
+  text-align: center;
+}
+div#table_area{
+  text-align: center;
 }

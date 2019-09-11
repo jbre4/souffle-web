@@ -19,14 +19,30 @@
         <div id="line">
           <textarea id="row_numbers" cols="2" rows="10" disabled></textarea>
         </div>
-        <form onsubmit="do_post(); return false">
+        <form id="submit_input" onsubmit="do_post(); return false">
           <textarea class="input" placeholder="Enter your code here..." name="input" id="input" onkeyup="keyUp()" onscroll="document.getElementById('row_numbers').scrollTop = this.scrollTop;">//Simple example&#13;&#10;.decl numbers(x: number)&#13;&#10; numbers(0).&#13;&#10;numbers(1).&#13;&#10;.output numbers(IO=stdout)</textarea>
           <br>
           <br>
           <input type="submit" value="Run">
         </form>
+        <form id="create_table" onsubmit="create_table(); return false">
+          Name of table:<br>
+          <input type="text" name="name_of_table" id="name_of_table"/><br>
+          Number of Columns:<br>
+          <input type="number" name="num_of_col" id="num_of_col"/><br>
+          <br>
+          <br>
+          <input type="submit" value="Create">
+        </form>
+        <div id="table_area">
+          <table id="input_table">
+          </table>
+          <button id="addRow" style="display: none;" onclick="addRow()" display>Add</button>
+          <button id="resetTable" style="display: none;" onclick="resetTable()">Reset</button>
+        </div>
       </div>
     </div>
+
     <div class="output_group">
       <h2>Output</h2>
       <textarea class="output" readonly name="output" id="output"></textarea>

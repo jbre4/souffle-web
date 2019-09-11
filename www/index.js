@@ -66,3 +66,37 @@ function autoScroll(){
 if(!document.all){
   window.addEventListener("load", autoScroll,false);
 }
+
+function create_table(){
+  var num_of_col = document.getElementById("num_of_col").value;
+  var table = document.getElementById("input_table");
+
+  table.innerHTML = "";
+  if(num_of_col!=0){
+    var row = table.insertRow(0);
+    for(var i=0; i<num_of_col; i++){
+      var cell = row.insertCell(0);
+      cell.contentEditable = "true";
+    }
+  }
+  if(table.rows.length > 0){
+    document.getElementById("addRow").style.display = "inline";
+    document.getElementById("resetTable").style.display = "inline";
+  }
+}
+
+function addRow(){
+  var num_of_col = document.getElementById("num_of_col").value;
+  var table = document.getElementById("input_table");
+  var num_of_rows = table.rows.length;
+  var row = table.insertRow(num_of_rows);
+  for(var i=0; i<num_of_col; i++) {
+    var cell = row.insertCell(0);
+    cell.contentEditable = "true"
+  }
+}
+
+function resetTable(){
+  document.getElementById("input_table").innerHTML = "";
+  addRow();
+}
