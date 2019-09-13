@@ -14,7 +14,3 @@ You may now open `http://localhost:[port]` in your browser.
 **Security note:** It is highly recommended to put the server behind a webserver such as NGINX or Apache.
 
 **TODO:** Write nginx example config.
-
-## Python Dependencies
-
-- url-normalize
