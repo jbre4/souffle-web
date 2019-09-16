@@ -2,6 +2,8 @@ import http.server
 import subprocess
 import os
 import sys
+import random
+import string
 
 # To start the server:
 # python server.py [port]
@@ -15,6 +17,7 @@ import sys
 # 501 - Not Implemented
 
 port = 8000
+tokens = set()
 
 if len(sys.argv) == 2:
 	port = int(sys.argv[1])
@@ -34,6 +37,16 @@ def ext_to_mime(ext):
 	}
 	
 	return mimemap.get(ext, "application/octet-stream")
+
+def generate_token():
+	token = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+	while (token in tokens):
+		token = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+	tokens.add(token)
+	return token
+
+def delete_token(token):
+	tokens.remove(token)
 
 class RequestHandler(http.server.BaseHTTPRequestHandler):
 	def serve_file(self):
