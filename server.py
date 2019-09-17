@@ -48,6 +48,18 @@ def generate_token():
 def delete_token(token):
 	tokens.remove(token)
 
+def generate_fact_file(dictionary, path):
+	file_name = dictionary["name"]
+	ncols = dictionary["ncols"]
+	data = dictionary["data"]
+	output_file = path + file_name + ".fact"
+
+	file = open(output_file, "w+")
+	for row in data:
+		file.write("\t".join(str(e) for e in row))
+		file.write("\n")
+	file.close()
+
 class RequestHandler(http.server.BaseHTTPRequestHandler):
 	def serve_file(self):
 		path = self.path
