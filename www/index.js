@@ -17,6 +17,15 @@ function do_post() {
 	xhr.open("POST", post_url, true);
 	xhr.setRequestHeader("Content-Type", post_mime);
 	xhr.send(post_body.value);
+
+  xhr = new XMLHttpRequest();
+  xhr.open("POST", post_url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  var name = document.getElementById("name_of_table").value;
+  var ncols = document.getElementById("num_of_col").value;
+  var data = getTable();
+  var table = JSON.stringify({"name": name, "ncols": ncols, "data": data});
+  xhr.send(table);
 }
 
 $("textarea").keypress(function(event) {
@@ -25,6 +34,21 @@ $("textarea").keypress(function(event) {
          return false;
          }
 });
+
+function getTable() {
+  var table = document.getElementById("input_table");
+  var num_of_rows = table.rows.length;
+  var num_of_col = table.rows[0].cells.length;
+  var content = "";
+  for(var i=0; i<num_of_rows; i++) {
+    for(var j=0; j<num_of_col; j++) {
+      content += table.rows[i].cells[j].innerHTML;
+      content += "\t";
+    }
+    content += "\n";
+  }
+  return content;
+}
 
 function syntaxHighlight() {
   var text = document.getElementById("input").value;
