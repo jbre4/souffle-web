@@ -124,3 +124,12 @@ function resetTable(){
   document.getElementById("input_table").innerHTML = "";
   addRow();
 }
+
+function uploadFile(){
+  var file = document.getElementById("file").files[0];
+  var reader = new FileReader();
+  reader.onload = function (e) {
+    post_body.innerText = e.target.result;
+  };
+  reader.readAsText(file);
+}
