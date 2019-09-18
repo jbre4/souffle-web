@@ -38,7 +38,7 @@ def ext_to_mime(ext):
 		".json": "application/json",
 		".ico":  "image/x-icon"
 	}
-	
+
 	return mimemap.get(ext, "application/octet-stream")
 
 def generate_token():
@@ -56,7 +56,6 @@ def generate_fact_file(dictionary, path):
 	ncols = dictionary["ncols"]
 	data = dictionary["data"]
 	output_file = os.path.join(path, file_name + ".facts")
-
 	file = open(output_file, "w+")
 	for row in data:
 		file.write("\t".join(str(e) for e in row))
@@ -79,78 +78,77 @@ def run_souffle(src, dir):
 class RequestHandler(http.server.BaseHTTPRequestHandler):
 	def serve_file(self):
 		path = self.path
-		
+
 		if not os.path.isabs(path):
 			self.send_error(400)
 			return
-		
+
 		path = os.path.normpath(path)
-		
+
 		if path == "/":
 			path = "/index.html"
-		
+
 		path = "www" + path
-		
+
 		if os.path.isdir(path):
 			self.send_error(403)
 			return
 		elif not os.path.exists(path):
 			self.send_error(404)
 			return
-		
+
 		ext = os.path.splitext(path)[1]
 		mime = ext_to_mime(ext)
-		
+
 		self.send_response(200)
 		self.send_header("Content-Type", mime)
 		self.send_header("Content-Length", os.path.getsize(path))
 		self.end_headers()
-		
+
 		file = open(path, "rb")
 		self.wfile.write(file.read())
-	
+
 	def do_GET(self):
 		self.serve_file()
-	
+
 	def api_do_run(self, basedir):
 		self.error_message_format = "%(message)s"
 		length = int(self.headers["Content-Length"])
 		body = self.rfile.read(length)
 		req = json.loads(body)
-		
 		for table in req["tables"]:
 			generate_fact_file(table, basedir)
-		
+
 		try:
 			proc = run_souffle(req["souffle_code"], basedir)
 		except FileNotFoundError:
 			self.send_error(500, "Souffle is not installed")
 			return
-		
+
 		if proc.returncode != 0:
 			body = proc.stderr
 		else:
 			body = proc.stdout
-		
+
 		self.send_response(200)
 		self.send_header("Content-Type", "text/plain")
 		self.send_header("Content-Length", len(body))
 		self.end_headers()
-		
+
 		self.wfile.write(body)
-	
+
 	def do_POST(self):
 		if self.path == "/api/run":
 			session = generate_token()
 			basedir = create_temp_dir(session)
-			
+
 			try:
 				self.api_do_run(basedir)
 			except json.decoder.JSONDecodeError:
 				self.send_error(400, "Malformed JSON")
 			except KeyError:
 				self.send_error(400, "Malformed request object")
-			
+
 			shutil.rmtree(basedir)
 			delete_token(session)
 		else:

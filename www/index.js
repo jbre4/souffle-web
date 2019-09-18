@@ -3,7 +3,7 @@ post_url = "/api/run";
 post_mime = "text/plain";
 resp_body = document.getElementById("output");
 resp_mime = "text/plain";
-
+var tables = new Array();
 function do_post() {
   var xhr = new XMLHttpRequest();
 
@@ -14,18 +14,14 @@ function do_post() {
 		}
 	}
 
-	xhr.open("POST", post_url, true);
-	xhr.setRequestHeader("Content-Type", post_mime);
-	xhr.send(post_body.value);
-
-  xhr = new XMLHttpRequest();
   xhr.open("POST", post_url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
   var name = document.getElementById("name_of_table").value;
   var ncols = document.getElementById("num_of_col").value;
-  var data = getTable();
-  var table = JSON.stringify({"name": name, "ncols": ncols, "data": data});
-  xhr.send(table);
+  tables.push(getTable());
+  console.log(tables)
+  var inputs = JSON.stringify({"souffle_code": post_body.value, "tables": tables});
+  xhr.send(inputs);
 }
 
 $("textarea").keypress(function(event) {
@@ -39,15 +35,19 @@ function getTable() {
   var table = document.getElementById("input_table");
   var num_of_rows = table.rows.length;
   var num_of_col = table.rows[0].cells.length;
-  var content = "";
+  var name = document.getElementById("name_of_table").value;
+  var content = [];
   for(var i=0; i<num_of_rows; i++) {
+    content[i] = [];
     for(var j=0; j<num_of_col; j++) {
-      content += table.rows[i].cells[j].innerHTML;
-      content += "\t";
+      content[i].push(table.rows[i].cells[j].innerHTML);
     }
-    content += "\n";
   }
-  return content;
+  var table = {};
+  table["name"] = name;
+  table["ncols"] = num_of_col;
+  table["data"] = content;
+  return table;
 }
 
 function syntaxHighlight() {
