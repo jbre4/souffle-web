@@ -4,6 +4,9 @@ import os
 import sys
 import random
 import string
+import tempfile
+import shutil
+import json
 
 # To start the server:
 # python server.py [port]
@@ -52,13 +55,26 @@ def generate_fact_file(dictionary, path):
 	file_name = dictionary["name"]
 	ncols = dictionary["ncols"]
 	data = dictionary["data"]
-	output_file = path + file_name + ".fact"
+	output_file = os.path.join(path, file_name + ".facts")
 
 	file = open(output_file, "w+")
 	for row in data:
 		file.write("\t".join(str(e) for e in row))
 		file.write("\n")
 	file.close()
+
+def create_temp_dir(token):
+	path = os.path.join(tempfile.gettempdir(), "souffle-web-session", token)
+	if os.path.exists(path):
+		shutil.rmtree(path)
+	os.makedirs(path)
+	return path
+
+def run_souffle(src, dir):
+	args = ["souffle", "/dev/stdin", "-D", "-"]
+	if dir != None:
+		args.extend(["-F", dir])
+	return subprocess.run(args, input=bytearray(src, "utf8"), capture_output=True)
 
 class RequestHandler(http.server.BaseHTTPRequestHandler):
 	def serve_file(self):
@@ -96,14 +112,17 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
 	def do_GET(self):
 		self.serve_file()
 	
-	def api_do_run(self):
+	def api_do_run(self, basedir):
 		self.error_message_format = "%(message)s"
 		length = int(self.headers["Content-Length"])
-		
 		body = self.rfile.read(length)
+		req = json.loads(body)
+		
+		for table in req["tables"]:
+			generate_fact_file(table, basedir)
 		
 		try:
-			proc = subprocess.run(["souffle", "/dev/stdin", "-D", "-"], input=body, capture_output=True)
+			proc = run_souffle(req["souffle_code"], basedir)
 		except FileNotFoundError:
 			self.send_error(500, "Souffle is not installed")
 			return
@@ -122,7 +141,18 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
 	
 	def do_POST(self):
 		if self.path == "/api/run":
-			self.api_do_run()
+			session = generate_token()
+			basedir = create_temp_dir(session)
+			
+			try:
+				self.api_do_run(basedir)
+			except json.decoder.JSONDecodeError:
+				self.send_error(400, "Malformed JSON")
+			except KeyError:
+				self.send_error(400, "Malformed request object")
+			
+			shutil.rmtree(basedir)
+			delete_token(session)
 		else:
 			self.send_error(404)
 
