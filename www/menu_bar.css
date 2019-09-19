@@ -31,6 +31,6 @@ ul li.home_button a{
 .menu_bar ul li a:hover {
   color: #bfbfbf;
 }
-.current {
+.menu_bar .current {
   color: #bfbfbf !important;
 }
