@@ -7,6 +7,7 @@ import string
 import tempfile
 import shutil
 import json
+from threading import Lock
 
 # To start the server:
 # python server.py [port]
@@ -41,15 +42,23 @@ def ext_to_mime(ext):
 
 	return mimemap.get(ext, "application/octet-stream")
 
+session_mutex = Lock()
+
 def generate_token():
+	session_mutex.acquire()
+	
 	token = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
 	while (token in tokens):
 		token = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
 	tokens.add(token)
+	
+	session_mutex.release()
 	return token
 
 def delete_token(token):
+	session_mutex.acquire()
 	tokens.remove(token)
+	session_mutex.release()
 
 def generate_fact_file(dictionary, path):
 	file_name = dictionary["name"]
