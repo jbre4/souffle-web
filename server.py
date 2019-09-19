@@ -122,9 +122,17 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
 
 	def api_do_run(self, basedir):
 		self.error_message_format = "%(message)s"
+		self.error_content_type = "text/plain"
+		
 		length = int(self.headers["Content-Length"])
+		type = self.headers["Content-Type"]
+		
+		if type != "application/json":
+			self.send_error(400, "Wrong Content-Type, expected application/json")
+		
 		body = self.rfile.read(length)
 		req = json.loads(body)
+		
 		for table in req["tables"]:
 			generate_fact_file(table, basedir)
 
