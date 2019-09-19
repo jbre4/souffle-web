@@ -24,12 +24,12 @@ function do_post() {
   xhr.send(inputs);
 }
 
-$("textarea").keypress(function(event) {
-        if (event.keyCode == 13 && event.shiftKey) {
-         do_post(); //Submit your form here
-         return false;
-         }
-});
+document.querySelector("#input").onkeypress = function(event) {
+  if (event.keyCode == 13 && event.shiftKey) {
+    do_post(); //Submit your form here
+    return false;
+  }
+};
 
 function getTable() {
   var table = document.getElementById("input_table");
