@@ -129,6 +129,7 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
 		
 		if type != "application/json":
 			self.send_error(400, "Wrong Content-Type, expected application/json")
+			return
 		
 		body = self.rfile.read(length)
 		req = json.loads(body)
