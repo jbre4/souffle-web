@@ -40,7 +40,7 @@ function getTable() {
   for(var i=0; i<num_of_rows; i++) {
     content[i] = [];
     for(var j=0; j<num_of_col; j++) {
-      content[i].push(table.rows[i].cells[j].innerHTML);
+      content[i].push(table.rows[i].cells[j].firstChild.textContent);
     }
   }
   var table = {};
