@@ -1,10 +1,9 @@
 .menu_bar {
   width: 100%;
   height: 50 px;
-  z-index: 100;
 }
-.menu_bar * {
-    z-index: inherit;
+#menu_list {
+    z-index: 100;
 }
 .menu_bar ul {
   list-style-type: none;
