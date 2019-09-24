@@ -152,6 +152,12 @@ function testSyntaxHighlight() {
       } else {
         new_code += ("<span>" + space_split[j] + "</span>");
       }
+      if (j < space_len) {
+        new_code += " ";
+      }
+    }
+    if (i < splited.length) {
+      new_code += "<br/>";
     }
   }
   document.getElementById("editor_test").innerHTML = new_code;
