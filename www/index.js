@@ -133,3 +133,20 @@ function uploadFile(){
   };
   reader.readAsText(file);
 }
+
+function testSyntaxHighlight() {
+  var code = document.getElementById("editor_test").innerText;
+  var splited = code.split(/\n/);
+  for (var i = 0, len = splited.length; i < len; ++i) {
+    console.log(splited[i]);
+    var space_split = splited[i].split(" ");
+    for (var j = 0, space_len = space_split.length; j < space_len; ++j) {
+      console.log(space_split[j]);
+      if (space_split[j].startsWith(".")){
+        var re = new RegExp(space_split[j]);
+        code = code.replace(re, "<span class='blue'>" + space_split[j] + "</span>");
+        document.getElementById("editor_test").innerHTML = code;
+      }
+    }
+  }
+}
