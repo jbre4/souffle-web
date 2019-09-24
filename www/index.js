@@ -40,7 +40,7 @@ function getTable() {
   for(var i=0; i<num_of_rows; i++) {
     content[i] = [];
     for(var j=0; j<num_of_col; j++) {
-      content[i].push(table.rows[i].cells[j].firstChild.textContent);
+      content[i].push(table.rows[i].cells[j].innerHTML);
     }
   }
   var table = {};
@@ -136,17 +136,23 @@ function uploadFile(){
 
 function testSyntaxHighlight() {
   var code = document.getElementById("editor_test").innerText;
+  var new_code = "";
   var splited = code.split(/\n/);
   for (var i = 0, len = splited.length; i < len; ++i) {
-    console.log(splited[i]);
+    //console.log(splited[i]);
     var space_split = splited[i].split(" ");
     for (var j = 0, space_len = space_split.length; j < space_len; ++j) {
-      console.log(space_split[j]);
+      //console.log(space_split[j]);
+      //code = code.replace(/^./)
       if (space_split[j].startsWith(".")){
-        var re = new RegExp(space_split[j]);
-        code = code.replace(re, "<span class='blue'>" + space_split[j] + "</span>");
-        document.getElementById("editor_test").innerHTML = code;
+        //console.log(space_split[j]);
+        //code = code.replace(new RegExp(space_split[j], 'g'), "<span class='blue'>" + space_split[j] + "</span>");
+        //code = code.replace(space_split[j], "<span class='blue'>" + space_split[j] + "</span>");
+        new_code += ("<span class='blue'>" + space_split[j] + "</span>");
+      } else {
+        new_code += ("<span>" + space_split[j] + "</span>");
       }
     }
   }
+  document.getElementById("editor_test").innerHTML = new_code;
 }
