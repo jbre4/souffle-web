@@ -31,6 +31,110 @@ document.querySelector("#input").onkeypress = function(event) {
   }
 };
 
+function byId(id) {
+    return document.getElementById(id);
+}
+
+tab_container = byId("tab_container");
+table_container = byId("table_container");
+
+function genTabButtonId(name) {
+    return `tab_header_button_${name}`;
+}
+
+function genTabBodyId(name) {
+    return `tab_body_area_${name}`;
+}
+
+function genTabButton(name) {
+    span = document.createElement("span");
+    span.id = genTabButtonId(name);
+    span.classList.add("tab_button");
+    span.innerText = name;
+    return span;
+}
+
+function genTabBody(name) {
+    div = document.createElement("div");
+    div.id = genTabBodyId(name);
+    div.classList.add("tab_body");
+    div.tab_name = name;
+    return div;
+}
+
+function tabExists(name) {
+    return byId(genTabButtonId(name)) != null;
+}
+
+function getTab(name) {
+    var button = byId(genTabButtonId(name));
+    var body = byId(genTabBodyId(name));
+    
+    if (button == null) {
+        return null;
+    }
+    
+    return {
+        button: button,
+        body: body
+    }
+}
+
+function getCurrentTab() {
+    var button = document.querySelector("#tab_container > .tab_button.current");
+    var body = document.querySelector("#table_container > .tab_body.current");
+    
+    if (button == null) {
+        return null;
+    }
+    
+    return {
+        button: button,
+        body: body
+    }
+}
+
+function switchTab(name) {
+    var cur_tab = getCurrentTab();
+    
+    if (cur_tab != null) {
+        cur_tab.button.classList.remove("current");
+        cur_tab.body.classList.remove("current");
+    }
+    
+    var tab = getTab(name);
+    tab.button.classList.add("current");
+    tab.body.classList.add("current");
+}
+
+// Create a new tab with a name.
+// Returns an empty div which you can put stuff inside of.
+// Div switching logic is handled automatically.
+function createNewTab(name) {
+    if (tabExists(name)) {
+        return null;
+    }
+    
+    var tab_button = genTabButton(name);
+    var tab_body = genTabBody(name);
+    
+    tab_button.onclick = function() {
+        switchTab(name);
+    }
+    
+    tab_container.appendChild(tab_button);
+    table_container.appendChild(tab_body);
+    
+    switchTab(name);
+    return tab_body;
+}
+
+// Returns a list all tab divs. Each div contains a property tab_name containing the
+// tab name passed in when it was created with createNewTab.
+function getAllTabs() {
+    return document.querySelectorAll("#table_container > .tab_body");
+}
+
 function getTable() {
   var table = document.getElementById("input_table");
   var num_of_rows = table.rows.length;

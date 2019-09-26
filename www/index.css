@@ -100,3 +100,22 @@ div#editor_test{
 .blue{
   color:blue;
 }
+
+#table_container > .tab_body {
+    display: none;
+}
+
+#table_container > .tab_body.current {
+    display: initial;
+}
+
+#tab_container > .tab_button {
+    display: inline-block;
+    user-select: none;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+#tab_container > .tab_button.current {
+    font-weight: bold;
+}
