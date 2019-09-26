@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="menu_bar.css" />
-    <link rel = "stylesheet" type = "text/css" href = "index.css" />
+    <link rel="stylesheet" type = "text/css" href = "index.css" />
+    <link rel="stylesheet" type="text/css" href="codemirror/plugin/codemirror/lib/codemirror.css" />
   </head>
   <body>
     <div class="menu_bar">
@@ -25,6 +26,10 @@
           <br>
           <input type="submit" value="Run">
         </form>
+        <textarea class="codemirror-textarea"></textarea>
+        <script src="codemirror/js/jquery.min.js"></script>
+        <script src="codemirror/plugin/codemirror/lib/codemirror.js"></script>
+        <script src="codemirror/js/default.js"></script>
         <button id="button_test" onclick="testSyntaxHighlight()"> TEST </button>
         <form id="uppload_input" onsubmit="uploadFile(); return false">
           <input id="file" type="file"/>

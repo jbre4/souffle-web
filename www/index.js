@@ -266,3 +266,4 @@ function testSyntaxHighlight() {
   }
   document.getElementById("editor_test").innerHTML = new_code;
 }
+
