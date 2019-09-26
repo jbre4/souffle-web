@@ -60,36 +60,6 @@ form#submit_input{
   float:left;
   width: 50%;
 }
-form#create_table{
-  float: right;
-  width: 50%;
-}
-
-div#table_area{
-  width:50%;
-  height:auto;
-  float:right;
-  table-layout:fixed;
-}
-table#input_table{
-  width:95%;
-  height:auto;
-  margin: 20px 20px 20px 20px;
-  table-layout:fixed;
-}
-table, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-tr{
-  height:25px;
-}
-td{
-  text-align: center;
-}
-div#table_area{
-  text-align: center;
-}
 
 div#editor_test{
   max-width: 500px;

@@ -1,0 +1,60 @@
+
+.form_container{
+  display: none;
+  position: fixed;
+  top: 25%;
+  left: 35%;
+  width: 30%;
+  border: 3px solid #f1f1f1;
+  padding: 10px 5px 10px 5px;
+  z-index: 9;
+  background-color: white;
+}
+.create_table_form {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+.submit_button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+input#name_of_table, input#num_of_col{
+  width: 90%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+.cancel_button {
+  background-color: red;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+div.jexcel_container{
+  position: absolute;
+  right:0;
+  top:50px;
+  width:50%;
+  height: 500px;
+}
+div.jexcel_content{
+  width:500px;
+}
+
+button.create_table_button{
+  position: absolute;
+  right: 100px;
+  top: 20px;
+}

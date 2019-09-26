@@ -1,0 +1,53 @@
+.jnotification {
+    position: fixed;
+    z-index:10000;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+    border-radius: 4px;
+    padding: 10px;
+
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+@media (min-width: 320px) and (max-width: 800px)
+{
+    .jnotification {
+        top:0px;
+        background: #fff;
+        margin:10px;
+        width:calc(100% - 20px);
+        border:1px solid #eee;
+    }
+}
+
+@media (min-width: 801px)
+{
+    .jnotification {
+        bottom:0px;
+        backgroun-color:#000;
+        background: rgb(92,92,92);
+        background: linear-gradient(0deg, rgba(92,92,92,1) 0%, rgba(77,77,77,1) 100%);
+        color:#fff;
+        width:320px;
+        margin:30px;
+        padding:20px;
+    }
+}
+
+.jnotification-header
+{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}

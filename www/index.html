@@ -5,6 +5,12 @@
     <link rel="stylesheet" type="text/css" href="menu_bar.css" />
     <link rel="stylesheet" type = "text/css" href = "index.css" />
     <link rel="stylesheet" type="text/css" href="codemirror/plugin/codemirror/lib/codemirror.css" />
+
+    <script src="jexcel-master/dist/jexcel.js"></script>
+    <link rel="stylesheet" href="jexcel-master/dist/jexcel.css" type="text/css" />
+    <script src="jsuites-master/dist/jsuites.js"></script>
+    <link rel="stylesheet" href="jsuites-master/dist/jsuites.css" type="text/css" />
+    <link rel="stylesheet" href="table.css" type="text/css">
   </head>
   <body>
     <div class="menu_bar">
@@ -25,28 +31,37 @@
           <br>
           <br>
           <input type="submit" value="Run">
+          <button id="button_test" onclick="testSyntaxHighlight()"> TEST </button>
         </form>
+        <!--
         <textarea class="codemirror-textarea"></textarea>
         <script src="codemirror/js/jquery.min.js"></script>
         <script src="codemirror/plugin/codemirror/lib/codemirror.js"></script>
         <script src="codemirror/js/default.js"></script>
-        <button id="button_test" onclick="testSyntaxHighlight()"> TEST </button>
-        <form id="uppload_input" onsubmit="uploadFile(); return false">
+
+
+        <form id="upload_input" onsubmit="uploadFile(); return false">
           <input id="file" type="file"/>
           <input type="submit" value="Upload">
         </form>
-        <form id="create_table" onsubmit="create_table(); return false">
-          Name of table:<br>
-          <input type="text" name="name_of_table" id="name_of_table"/><br>
-          Number of Columns:<br>
-          <input type="number" name="num_of_col" id="num_of_col"/><br>
-          <br>
-          <br>
-          <input type="submit" value="Create">
-        </form>
-        
+        -->
+        <button class="create_table_button" onclick="openForm()"> New Table</button>
+        <div class="form_container" id="form_container">
+          <form id="create_table_form">
+            <h2>Create a new table</h2>
+            <p>Name:</p>
+            <input type="text" name="name_of_table" id="name_of_table"/><br>
+            <p>Number of Columns:</p>
+            <input type="number" name="num_of_col" id="num_of_col"/><br>
+            <br>
+            <button type="button" class="submit_button" onclick="addTable()">Create</button>
+            <button type="button" class="cancel_button" onclick="closeForm()">Cancel</button>
+          </form>
+        </div>
         <div id="tab_container"></div>
-        <div id="table_container"></div>
+        <div class="table_container" id="table_container">
+        <div></div>
+        </div>
       </div>
     </div>
 

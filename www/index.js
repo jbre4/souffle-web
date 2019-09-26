@@ -3,7 +3,9 @@ post_url = "/api/run";
 post_mime = "text/plain";
 resp_body = document.getElementById("output");
 resp_mime = "text/plain";
-var tables = new Array();
+var tables = [];
+var jexcels = [];
+
 function do_post() {
   var xhr = new XMLHttpRequest();
 
@@ -18,8 +20,7 @@ function do_post() {
   xhr.setRequestHeader("Content-Type", "application/json");
   var name = document.getElementById("name_of_table").value;
   var ncols = document.getElementById("num_of_col").value;
-  tables.push(getTable());
-  console.log(tables)
+  getJexcels();
   var inputs = JSON.stringify({"souffle_code": post_body.value, "tables": tables});
   xhr.send(inputs);
 }
@@ -69,11 +70,11 @@ function tabExists(name) {
 function getTab(name) {
     var button = byId(genTabButtonId(name));
     var body = byId(genTabBodyId(name));
-    
+
     if (button == null) {
         return null;
     }
-    
+
     return {
         button: button,
         body: body
@@ -83,11 +84,11 @@ function getTab(name) {
 function getCurrentTab() {
     var button = document.querySelector("#tab_container > .tab_button.current");
     var body = document.querySelector("#table_container > .tab_body.current");
-    
+
     if (button == null) {
         return null;
     }
-    
+
     return {
         button: button,
         body: body
@@ -96,12 +97,12 @@ function getCurrentTab() {
 
 function switchTab(name) {
     var cur_tab = getCurrentTab();
-    
+
     if (cur_tab != null) {
         cur_tab.button.classList.remove("current");
         cur_tab.body.classList.remove("current");
     }
-    
+
     var tab = getTab(name);
     tab.button.classList.add("current");
     tab.body.classList.add("current");
@@ -114,17 +115,17 @@ function createNewTab(name) {
     if (tabExists(name)) {
         return null;
     }
-    
+
     var tab_button = genTabButton(name);
     var tab_body = genTabBody(name);
-    
+
     tab_button.onclick = function() {
         switchTab(name);
     }
-    
+
     tab_container.appendChild(tab_button);
     table_container.appendChild(tab_body);
-    
+
     switchTab(name);
     return tab_body;
 }
@@ -135,29 +136,76 @@ function getAllTabs() {
     return document.querySelectorAll("#table_container > .tab_body");
 }
 
-function getTable() {
-  var table = document.getElementById("input_table");
-  var num_of_rows = table.rows.length;
-  var num_of_col = table.rows[0].cells.length;
-  var name = document.getElementById("name_of_table").value;
-  var content = [];
-  for(var i=0; i<num_of_rows; i++) {
-    content[i] = [];
-    for(var j=0; j<num_of_col; j++) {
-      content[i].push(table.rows[i].cells[j].innerHTML);
-    }
-  }
-  var table = {};
-  table["name"] = name;
-  table["ncols"] = num_of_col;
-  table["data"] = content;
-  return table;
+
+
+function openForm() {
+  document.getElementById("form_container").style.display = "block";
 }
 
-function syntaxHighlight() {
-  var text = document.getElementById("input").value;
-  console.log(text);
-  //still testing
+function closeForm() {
+  document.getElementById("form_container").style.display = "none";
+}
+
+function checkName(name) {
+  for(var i=0; i<tables.length; i++){
+    if(tables[i]["name"]==name){
+      return i;
+    }
+  }
+  return -1;
+}
+
+function addTable(){
+  var name = document.getElementById("name_of_table").value;
+  var n_cols = document.getElementById("num_of_col").value;
+  var table = {};
+  table["name"] = name;
+  table["ncols"] = n_cols;
+  table["data"] = [];
+
+  var index = checkName(name);
+  if(index != -1){
+    console.log(index);
+    tables.splice(index, 1);
+    tables.splice(index, 0, table);
+  } else {
+    tables.push(table);
+    document.getElementById("table_container").innerHTML += `<div  id=${name}></div>`;
+  }
+
+  loadTable();
+
+  document.getElementById("form_container").style.display = "none";
+  document.getElementById("name_of_table").value = null;
+  document.getElementById("num_of_col").value = null;
+}
+
+function loadTable(){
+  for(var i = 0; i<tables.length; i++){
+    name = tables[i]["name"];
+    document.getElementById(name).innerHTML = null;
+
+    var table = jexcel(document.getElementById(name),{
+        minDimensions:[tables[i]["ncols"], 15],
+        tableOverflow:true,
+        columnSorting:false,
+        //onchange: loadChange(table)
+    });
+    var index = checkName(name);
+    if(index != -1){
+      jexcels.splice(index, 1);
+      jexcels.splice(index, 0, table);
+    } else {
+      jexcels.push(table);
+    }
+  }
+}
+
+function getJexcels(){
+  for(var i=0; i<tables.length; i++){
+    tables[i]["data"] = jexcels[i].getData();
+    //console.log(tables[i]["data"]);
+  }
 }
 
 var num="";
@@ -195,39 +243,7 @@ if(!document.all){
   window.addEventListener("load", autoScroll,false);
 }
 
-function create_table(){
-  var num_of_col = document.getElementById("num_of_col").value;
-  var table = document.getElementById("input_table");
 
-  table.innerHTML = "";
-  if(num_of_col!=0){
-    var row = table.insertRow(0);
-    for(var i=0; i<num_of_col; i++){
-      var cell = row.insertCell(0);
-      cell.contentEditable = "true";
-    }
-  }
-  if(table.rows.length > 0){
-    document.getElementById("addRow").style.display = "inline";
-    document.getElementById("resetTable").style.display = "inline";
-  }
-}
-
-function addRow(){
-  var num_of_col = document.getElementById("num_of_col").value;
-  var table = document.getElementById("input_table");
-  var num_of_rows = table.rows.length;
-  var row = table.insertRow(num_of_rows);
-  for(var i=0; i<num_of_col; i++) {
-    var cell = row.insertCell(0);
-    cell.contentEditable = "true"
-  }
-}
-
-function resetTable(){
-  document.getElementById("input_table").innerHTML = "";
-  addRow();
-}
 
 function uploadFile(){
   var file = document.getElementById("file").files[0];
@@ -266,4 +282,3 @@ function testSyntaxHighlight() {
   }
   document.getElementById("editor_test").innerHTML = new_code;
 }
-
