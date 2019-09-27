@@ -1,5 +1,4 @@
 div.input_group{
-  height: 700px;
   width:100%;
   position: relative;
   top: 50px;
@@ -57,7 +56,6 @@ textarea.input{
   padding: 6px 6px 6px 30px;
 }
 form#submit_input{
-  float:left;
   width: 50%;
 }
 
