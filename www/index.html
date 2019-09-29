@@ -4,13 +4,13 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="menu_bar.css" />
     <link rel="stylesheet" type = "text/css" href = "index.css" />
-    <link rel="stylesheet" type="text/css" href="codemirror/plugin/codemirror/lib/codemirror.css" />
-
     <script src="jexcel-master/dist/jexcel.js"></script>
     <link rel="stylesheet" href="jexcel-master/dist/jexcel.css" type="text/css" />
     <script src="jsuites-master/dist/jsuites.js"></script>
     <link rel="stylesheet" href="jsuites-master/dist/jsuites.css" type="text/css" />
     <link rel="stylesheet" href="table.css" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="cm_plugin/codemirror/lib/codemirror.css"/>
   </head>
   <body>
     <div class="menu_bar">
@@ -22,6 +22,10 @@
     <div class="input_group">
       <h2>Input</h2>
       <div>
+        <textarea class="codemirror-textarea"></textarea>
+        <script type="text/javascript" src="cm_js/jquery.min.js"></script>
+        <script type="text/javascript" src="cm_plugin/codemirror/lib/codemirror.js"></script>
+        <script type="text/javascript" src="cm_js/default.js"></script>
         <div id="line">
           <textarea id="row_numbers" cols="2" rows="10" disabled></textarea>
         </div>
@@ -34,12 +38,11 @@
           <button id="button_test" onclick="testSyntaxHighlight()"> TEST </button>
         </form>
         <!--
-        <textarea class="codemirror-textarea"></textarea>
-        <script src="codemirror/js/jquery.min.js"></script>
-        <script src="codemirror/plugin/codemirror/lib/codemirror.js"></script>
-        <script src="codemirror/js/default.js"></script>
-
-        <form id="upload_input" onsubmit="uploadFile(); return false">
+          <textarea class="codemirror-textarea"></textarea>
+          <script src="codemirror/js/jquery.min.js"></script>
+          <script src="codemirror/plugin/codemirror/lib/codemirror.js"></script>
+          <script src="codemirror/js/default.js"></script>
+          <form id="upload_input" onsubmit="uploadFile(); return false">
           <input id="file" type="file"/>
           <input type="submit" value="Upload">
         </form>
@@ -63,7 +66,6 @@
         </div>
       </div>
     </div>
-
     <div class="output_group">
       <h2>Output</h2>
       <textarea class="output" readonly name="output" id="output"></textarea>
