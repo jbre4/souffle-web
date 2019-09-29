@@ -243,6 +243,14 @@ if(!document.all){
   window.addEventListener("load", autoScroll,false);
 }
 
+$(document).ready(function(){
+	//code here...
+	var code = $(".codemirror-textarea")[0];
+	var editor = CodeMirror.fromTextArea(code, {
+		lineNumbers : true
+	});
+});
+
 function uploadFile(){
   var file = document.getElementById("file").files[0];
   var reader = new FileReader();
