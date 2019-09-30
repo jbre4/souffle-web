@@ -1,4 +1,10 @@
-post_body = document.getElementById("input");
+var nonEmpty = false;
+var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+  styleActiveLine: true,
+  lineNumbers: true,
+  lineWrapping: true
+});
+
 post_url = "/api/run";
 post_mime = "text/plain";
 resp_body = document.getElementById("output");
@@ -21,11 +27,11 @@ function do_post() {
   var name = document.getElementById("name_of_table").value;
   var ncols = document.getElementById("num_of_col").value;
   getJexcels();
-  var inputs = JSON.stringify({"souffle_code": post_body.value, "tables": tables});
+  var inputs = JSON.stringify({"souffle_code": editor.getValue(), "tables": tables});
   xhr.send(inputs);
 }
 
-document.querySelector("#input").onkeypress = function(event) {
+document.querySelector("#submit_input").onkeypress = function(event) {
   if (event.keyCode == 13 && event.shiftKey) {
     do_post(); //Submit your form here
     return false;
@@ -156,8 +162,10 @@ function checkName(name) {
 }
 
 function addTable(){
+  document.getElementById("submit_input").style.width = "50%";
   var name = document.getElementById("name_of_table").value;
   var n_cols = document.getElementById("num_of_col").value;
+  console.log(name);
   var table = {};
   table["name"] = name;
   table["ncols"] = n_cols;
@@ -178,6 +186,7 @@ function addTable(){
   document.getElementById("form_container").style.display = "none";
   document.getElementById("name_of_table").value = null;
   document.getElementById("num_of_col").value = null;
+  createNewTab(name);
 }
 
 function loadTable(){
@@ -209,83 +218,12 @@ function getJexcels(){
 }
 
 var num="";
-keyUp();
-function keyUp(){
-  var input = document.getElementById("input");
-  var code = input.value;
-  code = code.replace(/\r/gi,"");
-  code = code.split("\n");
-  var n = code.length;
-  line(n);
-}
-function line(n){
-  var lineobj = document.getElementById("row_numbers");
-  for(var i=1;i<=n;i++){
-    if(document.all){
-      num+=i+"\r\n";
-    }else{
-      num+=i+"\n";
-    }
-  }
-  lineobj.value=num;
-  num="";
-}
-
-function autoScroll(){
-  var nV = 0;
-  if(!document.all) {
-    nV=document.getElementById("input").scrollTop;
-    document.getElementById("row_numbers").scrollTop=nV;
-    setTimeout("autoScroll()", 20);
-  }
-}
-if(!document.all){
-  window.addEventListener("load", autoScroll,false);
-}
-
-$(document).ready(function(){
-	//code here...
-	var code = $(".codemirror-textarea")[0];
-	var editor = CodeMirror.fromTextArea(code, {
-    lineNumbers : true,
-    name : "cmake"
-	});
-});
 
 function uploadFile(){
   var file = document.getElementById("file").files[0];
   var reader = new FileReader();
   reader.onload = function (e) {
-    post_body.innerText = e.target.result;
+    editor.setValue(e.target.result);
   };
   reader.readAsText(file);
-}
-
-function testSyntaxHighlight() {
-  var code = document.getElementById("editor_test").innerText;
-  var new_code = "";
-  var splited = code.split(/\n/);
-  for (var i = 0, len = splited.length; i < len; ++i) {
-    //console.log(splited[i]);
-    var space_split = splited[i].split(" ");
-    for (var j = 0, space_len = space_split.length; j < space_len; ++j) {
-      //console.log(space_split[j]);
-      //code = code.replace(/^./)
-      if (space_split[j].startsWith(".")){
-        //console.log(space_split[j]);
-        //code = code.replace(new RegExp(space_split[j], 'g'), "<span class='blue'>" + space_split[j] + "</span>");
-        //code = code.replace(space_split[j], "<span class='blue'>" + space_split[j] + "</span>");
-        new_code += ("<span class='blue'>" + space_split[j] + "</span>");
-      } else {
-        new_code += ("<span>" + space_split[j] + "</span>");
-      }
-      if (j < space_len) {
-        new_code += " ";
-      }
-    }
-    if (i < splited.length) {
-      new_code += "<br/>";
-    }
-  }
-  document.getElementById("editor_test").innerHTML = new_code;
 }

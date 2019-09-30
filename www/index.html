@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="jsuites-master/dist/jsuites.css" type="text/css" />
     <link rel="stylesheet" href="table.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="cm_plugin/codemirror/lib/codemirror.css"/>
+    <script src="cm_plugin/codemirror/lib/codemirror.js"></script>
+    <script src="cm_plugin/codemirror/addon/selection/active-line.js"></script>
   </head>
   <body>
     <div class="menu_bar">
@@ -20,33 +22,18 @@
     </div>
     <div class="input_group">
       <h2>Input</h2>
-      <div>
-        <textarea class="codemirror-textarea"></textarea>
-        <script type="text/javascript" src="cm_js/jquery.min.js"></script>
-        <script type="text/javascript" src="cm_plugin/codemirror/lib/codemirror.js"></script>
-        <script type="text/javascript" src="cm_plugin/codemirror/mode/cmake/cmake.js"></script>
-        <div id="line">
-          <textarea id="row_numbers" cols="2" rows="10" disabled></textarea>
-        </div>
-        <form id="submit_input" onsubmit="do_post(); return false">
-          <textarea class="input" placeholder="Enter your code here..." name="input" id="input" onkeyup="keyUp()" onscroll="document.getElementById('row_numbers').scrollTop = this.scrollTop;">//Simple example&#13;&#10;.decl numbers(x: number)&#13;&#10;numbers(0).&#13;&#10;numbers(1).&#13;&#10;.output numbers</textarea>
-          <div id="editor_test" contenteditable="true"></div>
-          <br>
-          <br>
-          <input type="submit" value="Run">
-          <button id="button_test" onclick="testSyntaxHighlight()"> TEST </button>
-        </form>
-        <!--
-          <textarea class="codemirror-textarea"></textarea>
-          <script src="codemirror/js/jquery.min.js"></script>
-          <script src="codemirror/plugin/codemirror/lib/codemirror.js"></script>
-          <script src="codemirror/js/default.js"></script>
-          <form id="upload_input" onsubmit="uploadFile(); return false">
+      <div class="toolbar">
+          <!--<form id="upload_input" onsubmit="uploadFile(); return false">
           <input id="file" type="file"/>
-          <input type="submit" value="Upload">
+          <input type="submit" value="Upload">  -->
+          <button onclick="uploadFile()"> upload</button>
+          <button onclick="do_post()"> run </button>
+          <button class="create_table_button" onclick="openForm()"> New Table</button>
+      </div>
+      <div>
+        <form id="submit_input">
+          <textarea id="code" name="code"></textarea>
         </form>
-        -->
-        <button class="create_table_button" onclick="openForm()"> New Table</button>
         <div class="form_container" id="form_container">
           <form id="create_table_form">
             <h2>Create a new table</h2>
@@ -59,16 +46,19 @@
             <button type="button" class="cancel_button" onclick="closeForm()">Cancel</button>
           </form>
         </div>
-        <div id="tab_container"></div>
-        <div class="table_container" id="table_container">
-        <div></div>
+        <div class="spreadsheet">
+          <div id="tab_container"></div>
+          <div class="table_container" id="table_container">
+          <div></div>
+          </div>
         </div>
       </div>
     </div>
     <div class="output_group">
       <h2>Output</h2>
       <textarea class="output" readonly name="output" id="output"></textarea>
-      <script src="index.js"></script>
     </div>
+    <script src="index.js"></script>
+
   </body>
 </html>

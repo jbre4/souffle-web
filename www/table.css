@@ -43,18 +43,17 @@ input#name_of_table, input#num_of_col{
   opacity: 0.8;
 }
 div.jexcel_container{
-  position: absolute;
+  position: relative;
   right:0;
   top:50px;
   width:50%;
   height: 500px;
 }
+div.spreadsheet{
+  float: right;
+  width: 45%;
+  margin: 10px;
+}
 div.jexcel_content{
   width:500px;
-}
-
-button.create_table_button{
-  position: absolute;
-  right: 100px;
-  top: 20px;
 }
