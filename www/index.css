@@ -46,10 +46,20 @@ form#submit_input{
 #tab_container > .tab_button {
     display: inline-block;
     user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
     border: 1px solid black;
     padding: 10px;
 }
 
 #tab_container > .tab_button.current {
     font-weight: bold;
+}
+
+#tab_container > .tab_button .xbtn {
+	margin-left: 10px;
+}
+
+#tab_container > .tab_button .xbtn:hover {
+	color: red;
 }

@@ -53,6 +53,18 @@ function genTabButton(name) {
     span.id = genTabButtonId(name);
     span.classList.add("tab_button");
     span.innerText = name;
+    
+    xbtn = document.createElement("span");
+    xbtn.classList.add("xbtn");
+    xbtn.innerText = "✖";
+    
+    xbtn.onclick = function(e) {
+		closeTab(name);
+		e.stopPropagation();
+	};
+	
+	span.appendChild(xbtn);
+    
     return span;
 }
 
@@ -102,7 +114,7 @@ function switchTab(name) {
         cur_tab.button.classList.remove("current");
         cur_tab.body.classList.remove("current");
     }
-
+    
     var tab = getTab(name);
     tab.button.classList.add("current");
     tab.body.classList.add("current");
@@ -130,6 +142,23 @@ function createNewTab(name) {
     return tab_body;
 }
 
+function closeTab(name) {
+	tab = getTab(name);
+	
+	if (tab == null) {
+		return;
+	}
+	
+	tab_container.removeChild(tab.button);
+	table_container.removeChild(tab.body);
+	
+	fallback_tab = getAllTabs()[0];
+	
+	if (fallback_tab != null) {
+		switchTab(fallback_tab.table_name);
+	}
+}
+
 // Returns a list all tab divs.
 function getAllTabs() {
     return document.querySelectorAll("#table_container > .tab_body");
@@ -143,15 +172,6 @@ function closeForm() {
   document.getElementById("form_container").style.display = "none";
   document.getElementById("name_of_table").value = null;
   document.getElementById("num_of_col").value = null;
-}
-
-function checkName(name) {
-  for(var i=0; i<tables.length; i++){
-    if(tables[i]["name"]==name){
-      return i;
-    }
-  }
-  return -1;
 }
 
 function addTable() {
