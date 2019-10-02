@@ -2,7 +2,8 @@ var nonEmpty = false;
 var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
   styleActiveLine: true,
   lineNumbers: true,
-  lineWrapping: true
+  lineWrapping: true,
+  mode : "python"
 });
 
 resp_body = document.getElementById("output");
