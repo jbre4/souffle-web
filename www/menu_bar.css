@@ -3,7 +3,7 @@
   height: 50 px;
 }
 #menu_list {
-    z-index: 100;
+    z-index: 10000;
 }
 .menu_bar ul {
   list-style-type: none;

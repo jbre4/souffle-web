@@ -7,7 +7,7 @@
   width: 30%;
   border: 3px solid #f1f1f1;
   padding: 10px 5px 10px 5px;
-  z-index: 9;
+  z-index: 20000;
   background-color: white;
 }
 .create_table_form {
