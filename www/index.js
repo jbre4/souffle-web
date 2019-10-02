@@ -148,15 +148,17 @@ function closeTab(name) {
 	if (tab == null) {
 		return;
 	}
+    
+    if (tab.button.classList.contains("current")) {
+        fallback_tab = getAllTabs()[0];
+        
+        if (fallback_tab != null) {
+            switchTab(fallback_tab.table_name);
+        }
+    }
 	
 	tab_container.removeChild(tab.button);
 	table_container.removeChild(tab.body);
-	
-	fallback_tab = getAllTabs()[0];
-	
-	if (fallback_tab != null) {
-		switchTab(fallback_tab.table_name);
-	}
 }
 
 // Returns a list all tab divs.
