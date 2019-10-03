@@ -3,7 +3,7 @@ var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
   styleActiveLine: true,
   lineNumbers: true,
   lineWrapping: true,
-  mode : "python"
+  mode : "souffle"
 });
 
 resp_body = document.getElementById("output");
