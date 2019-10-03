@@ -3,8 +3,10 @@ var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
   styleActiveLine: true,
   lineNumbers: true,
   lineWrapping: true,
-  mode : "souffle"
+  mode: "souffle",
 });
+
+editor.setSize("100%", "100%")
 
 resp_body = document.getElementById("output");
 
@@ -27,9 +29,9 @@ function do_post() {
 	xhr.send(JSON.stringify(body));
 }
 
-document.querySelector("#submit_input").onkeypress = function(event) {
+document.querySelector("#code").onkeypress = function(event) {
   if (event.keyCode == 13 && event.shiftKey) {
-    do_post(); //Submit your form here
+    do_post();
     return false;
   }
 };
@@ -53,7 +55,11 @@ function genTabButton(name) {
     span = document.createElement("span");
     span.id = genTabButtonId(name);
     span.classList.add("tab_button");
-    span.innerText = name;
+    
+    text = document.createElement("span");
+    text.classList.add("tab_text");
+    text.innerText = name;
+    span.appendChild(text);
     
     xbtn = document.createElement("span");
     xbtn.classList.add("xbtn");
@@ -73,6 +79,7 @@ function genTabBody(name) {
     div = document.createElement("div");
     div.id = genTabBodyId(name);
     div.classList.add("tab_body");
+    div.tab_name = name;
     return div;
 }
 
@@ -154,7 +161,7 @@ function closeTab(name) {
         fallback_tab = getAllTabs()[0];
         
         if (fallback_tab != null) {
-            switchTab(fallback_tab.table_name);
+            switchTab(fallback_tab.tab_name);
         }
     }
 	
@@ -167,19 +174,19 @@ function getAllTabs() {
     return document.querySelectorAll("#table_container > .tab_body");
 }
 
+var overlay = byId("modal_overlay");
+
 function openForm() {
-  document.getElementById("form_container").style.display = "block";
+  overlay.classList.remove("hide");
 }
 
 function closeForm() {
-  document.getElementById("form_container").style.display = "none";
-  document.getElementById("name_of_table").value = null;
-  document.getElementById("num_of_col").value = null;
+  overlay.classList.add("hide");
+  byId("name_of_table").value = null;
+  byId("num_of_col").value = null;
 }
 
 function addTable() {
-  byId("submit_input").style.width = "50%";
-  
   var name = byId("name_of_table").value;
   var n_cols = byId("num_of_col").value;
 
@@ -196,6 +203,7 @@ function addTable() {
 	  minDimensions: [n_cols, 15],
 	  tableOverflow: true,
 	  columnSorting: false,
+      tableHeight: "100%",
   });
   
   closeForm();
@@ -215,15 +223,4 @@ function collectTables() {
 	}
 	
 	return tables;
-}
-
-var num="";
-
-function uploadFile(){
-  var file = document.getElementById("file").files[0];
-  var reader = new FileReader();
-  reader.onload = function (e) {
-    editor.setValue(e.target.result);
-  };
-  reader.readAsText(file);
 }

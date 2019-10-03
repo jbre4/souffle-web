@@ -1,22 +1,19 @@
-.menu_bar {
+#menu_bar {
   width: 100%;
   height: 50 px;
 }
 #menu_list {
     z-index: 10000;
 }
-.menu_bar ul {
+#menu_bar ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color: #000000;
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
 }
-.menu_bar ul li a{
+#menu_bar ul li a{
   background-color: #000000;
   color: white; /* Black text color */
   padding: 12px; /* Add some padding */
@@ -24,12 +21,12 @@
   float: right;
   font-size: 20px;
 }
-ul li.home_button a{
+ul li#home_button a{
   float: left !important;
 }
-.menu_bar ul li a:hover {
+#menu_bar ul li a:hover {
   color: #bfbfbf;
 }
-.menu_bar .current {
+#menu_bar .current {
   color: #bfbfbf !important;
 }

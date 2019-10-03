@@ -1,63 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="menu_bar.css" />
-    <link rel="stylesheet" type = "text/css" href = "index.css" />
-    <script src="jexcel-master/dist/jexcel.js"></script>
-    <link rel="stylesheet" href="jexcel-master/dist/jexcel.css" type="text/css" />
-    <script src="jsuites-master/dist/jsuites.js"></script>
-    <link rel="stylesheet" href="jsuites-master/dist/jsuites.css" type="text/css" />
-    <link rel="stylesheet" href="table.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="cm_plugin/codemirror/lib/codemirror.css"/>
-    <script src="cm_plugin/codemirror/lib/codemirror.js"></script>
-    <script src="cm_plugin/codemirror/addon/selection/active-line.js"></script>
-    <script src="cm_plugin/codemirror/mode/souffle/souffle.js"></script>
-  </head>
-  <body>
-    <div class="menu_bar">
-      <ul id = "menu_list">
-        <li class="home_button"><a href="/" class="current">HOME</a></<li>
-        <li><a href="subpages/contact_page.html" target="_blank">Contact</a></li>
-      </ul>
-    </div>
-    <div class="input_group">
-      <h2>Input</h2>
-      <div class="toolbar">
-          <!--<form id="upload_input" onsubmit="uploadFile(); return false">
-          <input id="file" type="file"/>
-          <input type="submit" value="Upload">  -->
-          <button onclick="uploadFile()"> upload</button>
-          <button onclick="do_post()"> run </button>
-          <button class="create_table_button" onclick="openForm()"> New Table</button>
-      </div>
-      <div>
-        <form id="submit_input">
-          <textarea id="code" name="code"></textarea>
-        </form>
-        <div class="form_container" id="form_container">
-          <form id="create_table_form">
-            <h2>Create a new table</h2>
-            <p>Name:</p>
-            <input type="text" name="name_of_table" id="name_of_table"/><br>
-            <p>Number of Columns:</p>
-            <input type="number" name="num_of_col" id="num_of_col"/><br>
-            <br>
-            <button type="button" class="submit_button" onclick="addTable()">Create</button>
-            <button type="button" class="cancel_button" onclick="closeForm()">Cancel</button>
-          </form>
-        </div>
-        <div class="spreadsheet">
-          <div id="tab_container"></div>
-          <div id="table_container"></div>
-        </div>
-      </div>
-    </div>
-    <div class="output_group">
-      <h2>Output</h2>
-      <textarea class="output" readonly name="output" id="output"></textarea>
-    </div>
-    <script src="index.js"></script>
+    <head>
+        <meta charset="utf-8" />
+        <title>Souffle Web Environment</title>
+        <script src="jexcel-master/dist/jexcel.js"></script>
+        <link rel="stylesheet" href="jexcel-master/dist/jexcel.css" type="text/css" />
+        <script src="jsuites-master/dist/jsuites.js"></script>
+        <link rel="stylesheet" href="jsuites-master/dist/jsuites.css" type="text/css" />
+        <link rel="stylesheet" href="table.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="cm_plugin/codemirror/lib/codemirror.css"/>
+        <link rel="stylesheet" type="text/css" href="menu_bar.css" />
+        <link rel="stylesheet" type = "text/css" href = "index.css" />
+        <script src="cm_plugin/codemirror/lib/codemirror.js"></script>
+        <script src="cm_plugin/codemirror/addon/selection/active-line.js"></script>
+        <script src="cm_plugin/codemirror/mode/souffle/souffle.js"></script>
+    </head>
 
-  </body>
+    <body>
+        <div id="menu_bar">
+            <ul id="menu_list">
+                <li id="home_button"><a href="/" class="current">HOME</a></<li>
+                <li><a href="subpages/contact_page.html" target="_blank">Contact</a></li>
+            </ul>
+        </div>
+        
+        <div id="content">
+            <div id="toolbar">
+                <button onclick="do_post()">Run</button>
+                <button onclick="openForm()">New Table</button>
+            </div>
+            
+            <div id="grid_container">
+                <div id="code_input">
+                    <textarea id="code"></textarea>
+                </div>
+                
+                <div id="tables">
+                    <div id="tab_container"></div>
+                    <div id="table_container"></div>
+                </div>
+
+                <textarea readonly autocomplete="off" id="output"></textarea>
+            </div>
+        </div>
+    </body>
+    
+    <div id="modal_overlay" class="hide">
+        <form id="new_table_form" onsubmit="addTable(); return false">
+            <h2>Create new table</h2>
+            <p>Name:</p>
+            <input type="text" id="name_of_table" required /><br>
+            <p>Number of Columns:</p>
+            <input type="number" min="1" id="num_of_col" required /><br>
+            <br>
+            <button type="button" id="cancel_button" onclick="closeForm()">Cancel</button>
+            <input type="submit" id="submit_button" value="Create"></button>
+        </form>
+    </div>
+
+    <script src="index.js"></script>
 </html>
