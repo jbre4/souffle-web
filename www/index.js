@@ -239,6 +239,7 @@ function closeBar() {
 }
 
 function fillTutorial1() {
-    document.getElementById("code").value = "TEST";
+    var test = "Tset";
+    document.getElementById("code").value = test;
     document.getElementById("sideBar").style.width = "0";
 }
