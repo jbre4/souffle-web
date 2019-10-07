@@ -225,21 +225,15 @@ function collectTables() {
 	return tables;
 }
 
-/*
-Below 2 methods are retrieved from 
-https://www.w3schools.com/howto/howto_js_collapse_sidebar.asp
-*/
-
-function openBar() {
-    document.getElementById("sideBar").style.width = "500px";
+function toggleBar() {
+    byId("sidebar").classList.toggle("expanded");
 }
-  
-function closeBar() {
-    document.getElementById("sideBar").style.width = "0";
-}
+<<<<<<< HEAD
 
 function fillTutorial1() {
     var test = "Tset";
     document.getElementById("code").value = test;
     document.getElementById("sideBar").style.width = "0";
 }
+=======
+>>>>>>> 1e39d4ba652bcc1f0981c4864b8fabdf87e57f76
