@@ -154,3 +154,28 @@ body > * {
     border: 1px solid black;
     padding: 20px;
 }
+
+/*
+Side Bar and side bar p are retrieved from 
+https://www.w3schools.com/howto/howto_js_collapse_sidebar.asp
+*/
+
+.sidebar {
+    height: 100%; 
+    width: 0;
+    position: fixed;
+    font-size:25px;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 50px;
+    transition: 0.5s;
+  }
+
+.sidebar p {
+    padding: 8px 8px 8px 8px;
+    font-size: 25px;
+    color: #FFFFFF;
+    transition: 0.5s;
+}

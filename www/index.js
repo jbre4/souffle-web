@@ -224,3 +224,21 @@ function collectTables() {
 	
 	return tables;
 }
+
+/*
+Below 2 methods are retrieved from 
+https://www.w3schools.com/howto/howto_js_collapse_sidebar.asp
+*/
+
+function openBar() {
+    document.getElementById("sideBar").style.width = "500px";
+}
+  
+function closeBar() {
+    document.getElementById("sideBar").style.width = "0";
+}
+
+function fillTutorial1() {
+    document.getElementById("code").value = "TEST";
+    document.getElementById("sideBar").style.width = "0";
+}

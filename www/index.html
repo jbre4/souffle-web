@@ -24,12 +24,21 @@
             </ul>
         </div>
         
-        <div id="content">
+        <!---
+            Got the idea from https://www.w3schools.com/howto/howto_js_collapse_sidebar.asp
+        -->
+
+        <div id="sideBar", class="sidebar" style="z-index:1">
+            <p class="closeBtn" onclick="closeBar()">Close Tutorials</p>
+            <p class="closeBtn" onclick="fillTutorial1()">Tutorial 1</p>
+        </div>
+        
+        <div id="content" style="z-index:0">
             <div id="toolbar">
                 <button onclick="do_post()">Run</button>
                 <button onclick="openForm()">New Table</button>
+                <button onclick="openBar()">Open tutorials</button>
             </div>
-            
             <div id="grid_container">
                 <div id="code_input">
                     <textarea id="code"></textarea>

@@ -3,7 +3,7 @@ CodeMirror.defineMode('souffle', function () {
       token: function (stream, state) {
   
         if (stream.match('.')) {
-          if (stream.skipTo('#')) {
+          if (stream.skipTo('.')) {
             stream.next()
             return 'tag'
           }
@@ -14,7 +14,7 @@ CodeMirror.defineMode('souffle', function () {
   
           return 'tag'
         }
-  
+        
         stream.skipToEnd()
         return null
       }
