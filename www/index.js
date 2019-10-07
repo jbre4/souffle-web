@@ -228,12 +228,3 @@ function collectTables() {
 function toggleBar() {
     byId("sidebar").classList.toggle("expanded");
 }
-<<<<<<< HEAD
-
-function fillTutorial1() {
-    var test = "Tset";
-    document.getElementById("code").value = test;
-    document.getElementById("sideBar").style.width = "0";
-}
-=======
->>>>>>> 1e39d4ba652bcc1f0981c4864b8fabdf87e57f76
