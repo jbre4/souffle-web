@@ -7,7 +7,6 @@
         <link rel="stylesheet" href="jexcel-master/dist/jexcel.css" type="text/css" />
         <script src="jsuites-master/dist/jsuites.js"></script>
         <link rel="stylesheet" href="jsuites-master/dist/jsuites.css" type="text/css" />
-        <link rel="stylesheet" href="table.css" type="text/css">
         <link rel="stylesheet" type="text/css" href="cm_plugin/codemirror/lib/codemirror.css"/>
         <link rel="stylesheet" type="text/css" href="menu_bar.css" />
         <link rel="stylesheet" type = "text/css" href = "index.css" />
@@ -23,10 +22,10 @@
                 <li><a href="subpages/contact_page.html" target="_blank">Contact</a></li>
             </ul>
         </div>
-        
+
         <div id="page">
             <div id="sidebar"></div>
-            
+
             <div id="content">
                 <div id="toolbar">
                     <button onclick="do_post()">Run</button>
@@ -37,7 +36,7 @@
                     <div id="code_input">
                         <textarea id="code"></textarea>
                     </div>
-                    
+
                     <div id="tables">
                         <div id="tab_container"></div>
                         <div id="table_container"></div>
@@ -48,7 +47,7 @@
             </div>
         </div>
     </body>
-    
+
     <div id="modal_overlay" class="hide">
         <form id="new_table_form" onsubmit="addTable(); return false">
             <h2>Create new table</h2>
