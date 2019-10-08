@@ -3,7 +3,7 @@ var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
   styleActiveLine: true,
   lineNumbers: true,
   lineWrapping: true,
-  mode: "souffle",
+  mode: "souffle2",
 });
 
 editor.setSize("100%", "100%")
@@ -12,18 +12,18 @@ resp_body = document.getElementById("output");
 
 function do_post() {
 	var xhr = new XMLHttpRequest();
-	
+
 	xhr.onreadystatechange = function() {
 		if (this.readyState == 4) {
 			resp_body.value = this.response;
 		}
 	}
-	
+
 	body = {
 		souffle_code: editor.getValue(),
 		tables: collectTables(),
 	};
-	
+
 	xhr.open("POST", "/api/run", true);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify(body));
@@ -55,23 +55,23 @@ function genTabButton(name) {
     span = document.createElement("span");
     span.id = genTabButtonId(name);
     span.classList.add("tab_button");
-    
+
     text = document.createElement("span");
     text.classList.add("tab_text");
     text.innerText = name;
     span.appendChild(text);
-    
+
     xbtn = document.createElement("span");
     xbtn.classList.add("xbtn");
     xbtn.innerText = "✖";
-    
+
     xbtn.onclick = function(e) {
 		closeTab(name);
 		e.stopPropagation();
 	};
-	
+
 	span.appendChild(xbtn);
-    
+
     return span;
 }
 
@@ -122,7 +122,7 @@ function switchTab(name) {
         cur_tab.button.classList.remove("current");
         cur_tab.body.classList.remove("current");
     }
-    
+
     var tab = getTab(name);
     tab.button.classList.add("current");
     tab.body.classList.add("current");
@@ -152,19 +152,19 @@ function createNewTab(name) {
 
 function closeTab(name) {
 	tab = getTab(name);
-	
+
 	if (tab == null) {
 		return;
 	}
-    
+
     if (tab.button.classList.contains("current")) {
         fallback_tab = getAllTabs()[0];
-        
+
         if (fallback_tab != null) {
             switchTab(fallback_tab.tab_name);
         }
     }
-	
+
 	tab_container.removeChild(tab.button);
 	table_container.removeChild(tab.body);
 }
@@ -191,37 +191,37 @@ function addTable() {
   var n_cols = byId("num_of_col").value;
 
   div = createNewTab(name);
-  
+
   if (div == null) {
 	  alert("Table name already exists");
   }
-  
+
   div.table_name = name;
   div.table_ncols = n_cols;
-  
+
   div.jexcel_table = jexcel(div, {
 	  minDimensions: [n_cols, 15],
 	  tableOverflow: true,
 	  columnSorting: false,
       tableHeight: "100%",
   });
-  
+
   closeForm();
 }
 
 function collectTables() {
 	var tables = [];
-	
+
 	for (let tab of getAllTabs()) {
 		table = {
 			name: tab.table_name,
 			ncols: tab.table_ncols,
 			data: tab.jexcel_table.getData(),
 		};
-		
+
 		tables.push(table);
 	}
-	
+
 	return tables;
 }
 
