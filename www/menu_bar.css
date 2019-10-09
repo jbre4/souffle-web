@@ -10,11 +10,10 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #000000;
+  background-color: #1d1d1f;
   width: 100%;
 }
 #menu_bar ul li a{
-  background-color: #000000;
   color: white; /* Black text color */
   padding: 12px; /* Add some padding */
   text-decoration: none; /* Remove underline from links */

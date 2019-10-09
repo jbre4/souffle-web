@@ -28,9 +28,11 @@
 
             <div id="content">
                 <div id="toolbar">
-                    <button onclick="do_post()">Run</button>
-                    <button onclick="openForm()">New Table</button>
-                    <button onclick="toggleBar()">Toggle Sidebar</button>
+                  <div class="toolbar-group">
+                    <button class="toolbar-button" onclick="toggleBar()"><img src="images/toggle.png", height="25"></button>
+                    <button class="toolbar-button" onclick="do_post()"><img src="images/run.png", height="25"></button>
+                    <button class="toolbar-button" onclick="openForm()"><img src="images/spreadsheet.png", height="25"></button>
+                  </div>
                 </div>
                 <div id="grid_container">
                     <div id="code_input">
@@ -50,14 +52,18 @@
 
     <div id="modal_overlay" class="hide">
         <form id="new_table_form" onsubmit="addTable(); return false">
-            <h2>Create new table</h2>
-            <p>Name:</p>
-            <input type="text" id="name_of_table" required /><br>
-            <p>Number of Columns:</p>
-            <input type="number" min="1" id="num_of_col" required /><br>
-            <br>
-            <button type="button" id="cancel_button" onclick="closeForm()">Cancel</button>
-            <input type="submit" id="submit_button" value="Create"></button>
+          <div class="content">
+            <div class="title">Create New Table</div>
+            <div class="input_field">
+              <input class="input-line" type="text" placeholder="Table Name" id="name_of_table" required /><br>
+              <input class="input-line" type="number" placeholder="Number of Columns" min="1" id="num_of_col" required /><br>
+            </div>
+            <div id="spacing"></div>
+            <div>
+              <button type="button" id="cancel_button" onclick="closeForm()">Cancel</button>
+              <button type="submit" id="submit_button" value="Create">Create</button>
+            </div>
+          </div>
         </form>
     </div>
 
