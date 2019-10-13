@@ -24,7 +24,7 @@ function do_post() {
 		tables: collectTables(),
 	};
 
-	xhr.open("POST", "/api/run", true);
+	xhr.open("POST", "api/run", true);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify(body));
 }
