@@ -37,7 +37,11 @@ def ext_to_mime(ext):
 		".gif":  "image/gif",
 		".txt":  "text/plain",
 		".json": "application/json",
-		".ico":  "image/x-icon"
+		".ico":  "image/x-icon",
+		".md":   "text/plain",
+		".dl":   "text/plain",
+		".csv":  "text/plain",
+		".fact": "text/plain",
 	}
 
 	return mimemap.get(ext, "application/octet-stream")

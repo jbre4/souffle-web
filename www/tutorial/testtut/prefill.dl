@@ -1,0 +1,6 @@
+.decl foo(x: number)
+
+foo(3).
+foo(5).
+
+.output foo

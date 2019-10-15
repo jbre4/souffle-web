@@ -1,4 +1,5 @@
 var nonEmpty = false;
+
 var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
   styleActiveLine: true,
   lineNumbers: true,
@@ -228,3 +229,107 @@ function collectTables() {
 function toggleBar() {
     byId("sidebar").classList.toggle("expanded");
 }
+
+function hide(el) {
+    el.classList.add("hide");
+}
+
+function show(el) {
+    el.classList.remove("hide");
+}
+
+tut_list_view = byId("tut_list_view");
+tut_list = byId("tut_list");
+
+tut_content_view = byId("tut_content_view");
+tut_title = byId("tut_title");
+tut_body = byId("tut_body");
+
+function tut_show_index() {
+    hide(tut_content_view);
+    show(tut_list_view);
+}
+
+function tut_show_content() {
+    hide(tut_list_view);
+    show(tut_content_view);
+}
+
+async function fetch_tutorials() {
+    var resp = await fetch("tutorial/index.json");
+    
+    if (!resp.ok) {
+        throw resp.statusText;
+    }
+    
+    var tutorials = await resp.json();
+    
+    tut_list.innerHTML = "";
+    
+    for (let tut of tutorials) {
+        if (tut.title == undefined) {
+            tut.title = tut.name;
+        }
+        
+        var span = document.createElement("span");
+        
+        span.classList.add("link");
+        span.innerText = tut.name;
+        span.title = tut.title;
+        
+        span.onclick = async function() {
+            tut_title.innerText = tut.title;
+            
+            try {
+                var resp = await fetch("tutorial/" + tut.markdown);
+                
+                if (!resp.ok) {
+                    throw resp.statusText;
+                }
+                
+                tut_body.innerHTML = marked(await resp.text());
+            }
+            catch (err) {
+                alert("Error fetching tutorial markdown: " + err);
+                return;
+            }
+            
+            if (tut.prefill == "preserve") {
+                // No-op
+            }
+            else if (tut.prefill != undefined) {
+                var resp = await fetch("tutorial/" + tut.prefill);
+                
+                if (!resp.ok) {
+                    alert("Error prefilling editor input: " + resp.statusText);
+                    return;
+                }
+                
+                editor.setValue(await resp.text());
+            }
+            else {
+                editor.setValue("");
+            }
+            
+            tut_show_content();
+        }
+        
+        tut_list.appendChild(span);
+    }
+}
+
+async function main() {
+    marked.setOptions({
+        headerIds: false,
+        baseUrl: "tutorial/",
+    });
+    
+    try {
+        await fetch_tutorials();
+    }
+    catch (err) {
+        alert("Error fetching tutorials: " + err);
+    }
+}
+
+window.onload = main;

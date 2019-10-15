@@ -13,6 +13,7 @@
         <script src="cm_plugin/codemirror/lib/codemirror.js"></script>
         <script src="cm_plugin/codemirror/addon/selection/active-line.js"></script>
         <script src="cm_plugin/codemirror/mode/souffle2/souffle2.js"></script>
+        <script src="marked.min.js"></script>
     </head>
 
     <body>
@@ -24,7 +25,21 @@
         </div>
 
         <div id="page">
-            <div id="sidebar"></div>
+            <div id="sidebar" class="expanded">
+                <div id="tut_list_view">
+                    <h1>Tutorials</h1>
+                    <p>Choose a tutorial from the list.</p>
+                    
+                    <div id="tut_list"></div>
+                </div>
+                
+                <div id="tut_content_view" class="hide">
+                    <div><span class="link" onclick="tut_show_index()">Back to index</span></div>
+                    <h1 id="tut_title"></h1>
+                    <hr/>
+                    <div id="tut_body"></div>
+                </div>
+            </div>
 
             <div id="content">
                 <div id="toolbar">

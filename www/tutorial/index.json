@@ -1,0 +1,14 @@
+[
+	{
+		"name": "Test tutorial",
+		"title": "This is a test tutorial to see if it works",
+		"markdown": "testtut/body.md",
+		"prefill": "testtut/prefill.dl"
+	},
+	{
+		"name": "Blank tutorial",
+		"title": "Blank tutorial that preserves the editor input",
+		"markdown": "blank.md",
+		"prefill": "preserve"
+	}
+]

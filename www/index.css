@@ -21,6 +21,20 @@ body > * {
     flex: 1 1 0;
 }
 
+hr {
+    border: none;
+    border-top: 1px solid black;
+}
+
+.link {
+    cursor: pointer;
+    color: rgb(0, 0, 255);
+}
+
+.link:hover {
+    color: rgb(0, 0, 100);
+}
+
 #menu_bar {
     flex: 0 1 0;
 }
@@ -214,6 +228,7 @@ body > * {
 
 #page {
     display: flex;
+    min-height: 0;
 }
 
 #page > * {
@@ -224,13 +239,43 @@ body > * {
     flex: 0 0 auto;
     width: 0;
     background-color: #e6e6e6;
-    overflow-x: hidden;
-    padding-top: 50px;
+    overflow: auto;
     transition: width 0.5s;
+}
+
+#sidebar > div {
+    margin: 20px 20px 0 20px;
 }
 
 #sidebar.expanded {
     width: 26vw;
+    border-right: 1px solid #b3b3b3;
+}
+
+#tut_list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#tut_list > * {
+    margin: 5px 0;
+}
+
+#tut_title {
+    font-size: 28px;
+}
+
+#tut_body {
+    font-size: 12px;
+}
+
+#tut_body img {
+    max-width: 100%;
+}
+
+#tut_body pre {
+    overflow: auto;
 }
 
 #toolbar .toolbar-group {
@@ -255,9 +300,11 @@ body > * {
   position: relative;
   background-color: initial;
 }
+
 .toolbar-button:focus {
   outline: none !important;
 }
+
 .toolbar-button:hover {
   background-color: #808080;
 }
