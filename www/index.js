@@ -227,7 +227,17 @@ function collectTables() {
 }
 
 function toggleBar() {
-    byId("sidebar").classList.toggle("expanded");
+    var sb = byId("sidebar");
+    var sh = byId("sidehandle");
+    
+    sb.classList.toggle("expanded");
+    
+    if (sb.classList.contains("expanded")) {
+        sh.innerText = "⯇";
+    }
+    else {
+        sh.innerText = "⯈";
+    }
 }
 
 function hide(el) {

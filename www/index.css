@@ -249,7 +249,6 @@ hr {
 
 #sidebar.expanded {
     width: 26vw;
-    border-right: 1px solid #b3b3b3;
 }
 
 #tut_list {
@@ -276,6 +275,25 @@ hr {
 
 #tut_body pre {
     overflow: auto;
+}
+
+#sidehandle {
+    flex: 0 0 auto;
+    width: 20px;
+    background-color: #d0d0d0;
+    border-left: 1px solid #a3a3a3;
+    border-right: 1px solid #a3a3a3;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    user-select: none;
+    color: #505050;
+}
+
+#sidehandle:hover {
+    background-color: #c0c0c0;
 }
 
 #toolbar .toolbar-group {
