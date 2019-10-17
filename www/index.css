@@ -275,6 +275,20 @@ a {
 
 #tut_body pre {
     overflow: auto;
+    background-color: #ffffff;
+    padding: 8px;
+    border: 1px solid #b3b3b3b3;
+    border-radius: 4px;
+}
+
+#tut_body code {
+    background-color: #ffffff;
+    border-radius: 2px;
+    padding: 1px 2px;
+}
+
+#tut_body pre > code {
+    padding: 0;
 }
 
 #sidehandle {
