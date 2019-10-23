@@ -175,6 +175,12 @@ function getAllTabs() {
     return document.querySelectorAll("#table_container > .tab_body");
 }
 
+function clearTabs() {
+    for (let tab of getAllTabs()) {
+        closeTab(tab.tab_name);
+    }
+}
+
 var overlay = byId("modal_overlay");
 
 function openForm() {
@@ -187,26 +193,31 @@ function closeForm() {
   byId("num_of_col").value = null;
 }
 
+function createTable(name, nc) {
+	div = createNewTab(name);
+	
+	if (div == null) {
+		alert("Table name already exists");
+	}
+	
+	div.table_name = name;
+	div.table_ncols = nc;
+	
+	var table = jexcel(div, {
+		minDimensions: [nc, 15],
+		tableOverflow: true,
+		columnSorting: false,
+		tableHeight: "100%",
+	});
+	
+	div.jexcel_table = table;
+	return table;
+}
+
 function addTable() {
   var name = byId("name_of_table").value;
   var n_cols = byId("num_of_col").value;
-
-  div = createNewTab(name);
-
-  if (div == null) {
-	  alert("Table name already exists");
-  }
-
-  div.table_name = name;
-  div.table_ncols = n_cols;
-
-  div.jexcel_table = jexcel(div, {
-	  minDimensions: [n_cols, 15],
-	  tableOverflow: true,
-	  columnSorting: false,
-      tableHeight: "100%",
-  });
-
+  createTable(name, n_cols);
   closeForm();
 }
 
@@ -265,6 +276,58 @@ function tut_show_content() {
     show(tut_content_view);
 }
 
+async function fill_code(prefill) {
+    if (prefill == "preserve") {
+        return;
+    }
+    
+    if (prefill == undefined) {
+        editor.setValue("");
+        return;
+    }
+    
+    var resp = await fetch("tutorial/" + prefill);
+    
+    if (!resp.ok) {
+        alert("Error prefilling editor input: " + resp.statusText);
+        return;
+    }
+    
+    editor.setValue(await resp.text());
+}
+
+async function fill_tables(tables) {
+    if (tables == "preserve") {
+        return;
+    }
+    
+    clearTabs();
+    
+    if (tables == undefined) {
+        return;
+    }
+    
+    for (let table of tables) {
+        var name = table[0];
+        var ncol = table[1]
+        var path = table[2];
+        
+        var resp = await fetch("tutorial/" + path);
+        
+        if (!resp.ok) {
+            alert("Error prefilling tables: " + resp.statusText);
+            return;
+        }
+        
+        var data = CSV.parse(await resp.text(), {
+			delimiter: "\t",
+		});
+        
+        var jtable = createTable(name, ncol);
+        jtable.setData(data);
+    }
+}
+
 async function fetch_tutorials() {
     var resp = await fetch("tutorial/index.json");
     
@@ -304,22 +367,8 @@ async function fetch_tutorials() {
                 return;
             }
             
-            if (tut.prefill == "preserve") {
-                // No-op
-            }
-            else if (tut.prefill != undefined) {
-                var resp = await fetch("tutorial/" + tut.prefill);
-                
-                if (!resp.ok) {
-                    alert("Error prefilling editor input: " + resp.statusText);
-                    return;
-                }
-                
-                editor.setValue(await resp.text());
-            }
-            else {
-                editor.setValue("");
-            }
+            fill_code(tut.prefill);
+            fill_tables(tut.tables);
             
             tut_show_content();
         }
