@@ -1,5 +1,6 @@
 html {
     font-family: Sans;
+    color: #222;
 }
 
 html, body {
@@ -267,7 +268,11 @@ a {
 }
 
 #tut_body {
-    font-size: 12px;
+    font-size: 14px;
+}
+
+#tut_body p {
+    line-height: 20px;
 }
 
 #tut_body img {
@@ -286,10 +291,15 @@ a {
     background-color: #ffffff;
     border-radius: 2px;
     padding: 1px 2px;
+    white-space: pre;
 }
 
 #tut_body pre > code {
     padding: 0;
+}
+
+#tut_body li {
+    margin: 8px 0;
 }
 
 #sidehandle {

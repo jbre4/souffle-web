@@ -1,0 +1,10 @@
+.decl Parent(n: symbol, m: symbol)
+Parent("d", "b"). Parent("e", "b"). Parent("f","c").
+Parent("g", "c"). Parent("b", "a"). Parent("c","a").
+.decl Person(n: symbol)
+Person(x) :- Parent(x, _).
+Person(x) :- Parent(_, x).
+.decl SameGeneration (n: symbol, m: symbol)
+SameGeneration(x, x):- Person(x).
+SameGeneration(x, y):- Parent(x,p), SameGeneration(p,q), Parent(y,q).
+.output SameGeneration

@@ -1,0 +1,9 @@
+.decl edge(n: symbol, m: symbol)
+edge("a", "b"). /* facts of edge */
+edge("b", "c").
+edge("c", "b").
+edge("c", "d").
+.decl reachable (n: symbol, m: symbol)
+.output reachable // output relation reachable
+reachable(x, y):- edge(x, y). // base rule
+reachable(x, z):- edge(x, y), reachable(y, z). // inductive rule

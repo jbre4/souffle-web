@@ -1,18 +1,18 @@
 [
 	{
-		"name": "Test tutorial",
-		"title": "This is a test tutorial to see if it works",
-		"markdown": "testtut/body.md",
-		"prefill": "testtut/prefill.dl",
-		"tables": [
-			["foo", 1, "testtut/foo.csv"]
-		]
-	},
-	{
-		"name": "Blank tutorial",
-		"title": "Blank tutorial that preserves the editor input",
-		"markdown": "blank.md",
+		"name": "Introduction",
+		"markdown": "intro.md",
 		"prefill": "preserve",
 		"tables": "preserve"
+	},
+	{
+		"name": "Transitive closure",
+		"markdown": "02/body.md",
+		"prefill": "02/code.dl"
+	},
+	{
+		"name": "Same generation (trees)",
+		"markdown": "03/body.md",
+		"prefill": "03/code.dl"
 	}
 ]

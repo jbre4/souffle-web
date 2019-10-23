@@ -1,7 +1,0 @@
-.decl foo(x: number)
-.input foo
-
-foo(3).
-foo(5).
-
-.output foo
