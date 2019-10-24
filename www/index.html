@@ -39,13 +39,13 @@
                 </div>
             </div>
             
-            <div id="sidehandle" onclick="toggleBar()" title="Show/Hide Sidebar" class="expanded"><img src="images/run.png"></div>
+            <div id="sidehandle" onclick="toggleBar()" title="Show/Hide Sidebar" class="expanded"><img src="images/run.png" alt=">"></div>
 
             <div id="content">
                 <div id="toolbar">
                   <div class="toolbar-group">
-                    <button class="toolbar-button" onclick="do_post()" title="Run"><img src="images/run.png"></button>
-                    <button class="toolbar-button" onclick="openForm()" title="New Table"><img src="images/spreadsheet.png"></button>
+                    <button class="toolbar-button" onclick="do_post()" title="Run"><img src="images/run.png" alt="run"></button>
+                    <button class="toolbar-button" onclick="openForm()" title="New Table"><img src="images/spreadsheet.png" alt="new table"></button>
                   </div>
                 </div>
                 <div id="grid_container">
@@ -68,24 +68,24 @@
                 <a href="subpages/contact_page.html" target="_blank">Contact</a> | <a href="https://bitbucket.org/dlee0870/souffle_web_ide/src/master/" target="_blank">Bitbucket</a> | <a href="https://souffle-lang.github.io/" target="_blank">Soufflé</a>
             </span>
         </div>
+        
+        <div id="modal_overlay" class="hide">
+            <form id="new_table_form" onsubmit="addTable(); return false">
+              <div class="content">
+                <div class="title">Create New Table</div>
+                <div class="input_field">
+                  <input class="input-line" type="text" placeholder="Table Name" id="name_of_table" required /><br>
+                  <input class="input-line" type="number" placeholder="Number of Columns" min="1" id="num_of_col" required /><br>
+                </div>
+                <div id="spacing"></div>
+                <div>
+                  <button type="button" id="cancel_button" onclick="closeForm()">Cancel</button>
+                  <button type="submit" id="submit_button" value="Create">Create</button>
+                </div>
+              </div>
+            </form>
+        </div>
+        
+        <script src="index.js"></script>
     </body>
-
-    <div id="modal_overlay" class="hide">
-        <form id="new_table_form" onsubmit="addTable(); return false">
-          <div class="content">
-            <div class="title">Create New Table</div>
-            <div class="input_field">
-              <input class="input-line" type="text" placeholder="Table Name" id="name_of_table" required /><br>
-              <input class="input-line" type="number" placeholder="Number of Columns" min="1" id="num_of_col" required /><br>
-            </div>
-            <div id="spacing"></div>
-            <div>
-              <button type="button" id="cancel_button" onclick="closeForm()">Cancel</button>
-              <button type="submit" id="submit_button" value="Create">Create</button>
-            </div>
-          </div>
-        </form>
-    </div>
-
-    <script src="index.js"></script>
 </html>
