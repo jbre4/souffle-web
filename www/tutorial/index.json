@@ -14,5 +14,30 @@
 		"name": "Same generation (trees)",
 		"markdown": "03/body.md",
 		"prefill": "03/code.dl"
+	},
+	{
+		"name": "Data-flow analysis",
+		"markdown": "04/body.md",
+		"prefill": "04/code.dl"
+	},
+	{
+		"name": "Relation declaration",
+		"markdown": "05/body.md",
+		"prefill": "preserve"
+	},
+	{
+		"name": "I/O Directives",
+		"markdown": "06/body.md",
+		"prefill": "preserve"
+	},
+	{
+		"name": "Lack of goals in Soufflé",
+		"markdown": "07/body.md",
+		"prefill": "preserve"
+	},
+	{
+		"name": "Syntactic conveniences",
+		"markdown": "08/body.md",
+		"prefill": "preserve"
 	}
 ]

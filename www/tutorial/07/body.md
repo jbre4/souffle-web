@@ -1,0 +1,1 @@
+A goal in Datalog is a logical relation of the form `false <= p`, where `p` is a logical relation. In the case of Soufflé, goals are simulated by output directives. The advantage is that several independent goals can be evaluated in a single execution of a Soufflé program. TODO: provenance and query processor and interactive processing

@@ -1,0 +1,27 @@
+// define control flow graph
+// via the Edge relation
+.decl Edge(n: symbol, m: symbol)
+Edge("start", "b1").
+Edge("b1", "b2").
+Edge("b1", "b3").
+Edge("b2", "b4").
+Edge("b3", "b4").
+Edge("b4", "b1").
+Edge("b4", "end").
+
+// Generating Definitions
+.decl GenDef(n: symbol, d:symbol)
+GenDef("b2", "d1").
+GenDef("b4", "d2").
+
+// Killing Definitions
+.decl KillDef(n: symbol, d:symbol)
+KillDef("b4", "d1").
+KillDef("b2", "d2").
+
+// Reachable
+.decl Reachable(n: symbol, d:symbol)
+Reachable(u,d) :- GenDef(u,d).
+Reachable(v,d) :- Edge(u,v), Reachable(u,d), !KillDef(u,d).
+
+.output Reachable
