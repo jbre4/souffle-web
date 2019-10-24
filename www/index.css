@@ -336,24 +336,24 @@ a {
     margin: 0 5px;
 }
 
-#toolbar .toolbar-group {
+#toolbar > .toolbar-group {
   background-color: #f4f4f4;
   border-color: rgba(0,0,0,.1);
   height: 34px;
   display: flex;
-  overflow: hidden;
   border:1px solid #b3b3b3;
 }
 
 .toolbar-button {
   border: none;
-  font-size: inherit;
-  box-sizing: border-box;
   padding: 0 8px;
-  min-width: 34px;
   flex: 0 0 auto;
-  position: relative;
-  background-color: initial;
+  background-color: transparent;
+}
+
+.toolbar-button > * {
+    display: block;
+    max-height: 20px;
 }
 
 .toolbar-button:focus {
