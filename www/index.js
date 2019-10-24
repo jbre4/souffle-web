@@ -1,3 +1,20 @@
+function hide(el) {
+    el.classList.add("hide");
+}
+
+function show(el) {
+    el.classList.remove("hide");
+}
+
+function hidden(el, yes) {
+	if (yes) {
+		hide(el);
+	}
+	else {
+		show(el);
+	}
+}
+
 var nonEmpty = false;
 
 var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
@@ -184,11 +201,11 @@ function clearTabs() {
 var overlay = byId("modal_overlay");
 
 function openForm() {
-  overlay.classList.remove("hide");
+  show(overlay);
 }
 
 function closeForm() {
-  overlay.classList.add("hide");
+  hide(overlay);
   byId("name_of_table").value = null;
   byId("num_of_col").value = null;
 }
@@ -262,14 +279,6 @@ function toggleBar() {
     byId("sidehandle").classList.toggle("expanded");
 }
 
-function hide(el) {
-    el.classList.add("hide");
-}
-
-function show(el) {
-    el.classList.remove("hide");
-}
-
 tut_list_view = byId("tut_list_view");
 tut_list = byId("tut_list");
 
@@ -341,6 +350,11 @@ async function fill_tables(tables) {
     }
 }
 
+async function fetch_editor_content(tut) {
+	fill_code(tut.prefill);
+	fill_tables(tut.tables);
+}
+
 async function fetch_tutorials() {
     var resp = await fetch("tutorial/index.json");
     
@@ -364,6 +378,14 @@ async function fetch_tutorials() {
         span.title = tut.title;
         
         span.onclick = async function() {
+			var resetBtn = byId("tut_reset");
+			
+			resetBtn.onclick = function() {
+				fetch_editor_content(tut);
+			}
+			
+			hidden(resetBtn, tut.prefill == "preserve");
+			
             tut_title.innerText = tut.title;
             
             try {
@@ -380,9 +402,7 @@ async function fetch_tutorials() {
                 return;
             }
             
-            fill_code(tut.prefill);
-            fill_tables(tut.tables);
-            
+            fetch_editor_content(tut);
             tut_show_content();
         }
         

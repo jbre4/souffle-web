@@ -263,6 +263,14 @@ a {
     margin: 5px 0;
 }
 
+#tut_controls {
+    display: flex;
+}
+
+#tut_controls > .stretchspacer {
+    flex: 1 1 0;
+}
+
 #tut_title {
     font-size: 28px;
 }
