@@ -281,6 +281,8 @@ async function fill_code(prefill) {
         return;
     }
     
+    resp_body.value = "";
+    
     if (prefill == undefined) {
         editor.setValue("");
         return;
