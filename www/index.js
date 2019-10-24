@@ -221,6 +221,25 @@ function addTable() {
   closeForm();
 }
 
+function trimEmptyRows(data) {
+	for (let i = 0; i < data.length;) {
+		var empty = true;
+		
+		for (let column of data[i]) {
+			if (column != "") {
+				empty = false;
+			}
+		}
+		
+		if (empty) {
+			data.splice(i, 1);
+		}
+		else {
+			i++;
+		}
+	}
+}
+
 function collectTables() {
 	var tables = [];
 
@@ -230,7 +249,8 @@ function collectTables() {
 			ncols: tab.table_ncols,
 			data: tab.jexcel_table.getData(),
 		};
-
+		
+		trimEmptyRows(table.data);
 		tables.push(table);
 	}
 
