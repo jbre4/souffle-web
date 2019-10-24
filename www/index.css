@@ -315,10 +315,19 @@ a {
     text-align: center;
     user-select: none;
     color: #505050;
+    align-items: center;
 }
 
 #sidehandle:hover {
     background-color: #c0c0c0;
+}
+
+#sidehandle > img {
+    max-width: 10px;
+}
+
+#sidehandle.expanded > img {
+    transform: scale(-1, 1);
 }
 
 #footer {
