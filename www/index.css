@@ -72,11 +72,6 @@ a {
     border: 1px solid #b3b3b3;
 }
 
-#tab_container {
-    grid-column: 2 / 3;
-    grid-row: 1 / 2;
-}
-
 #code_input {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
@@ -109,6 +104,7 @@ a {
     grid-row: 2 / 3;
     resize: none;
     margin: 0;
+    padding: 0 8px;
 }
 
 #table_container > .tab_body {
@@ -239,7 +235,7 @@ a {
 
 #sidebar {
     flex: 0 0 auto;
-    width: 0 !important;
+    width: 26vw;
     background-color: #e6e6e6;
     overflow: auto;
     transition: width 0.5s;
@@ -249,8 +245,8 @@ a {
     margin: 20px 20px 0 20px;
 }
 
-#sidebar.expanded {
-    width: 26vw;
+#sidebar.hidden {
+    width: 0 !important;
 }
 
 #tut_list {
@@ -261,6 +257,14 @@ a {
 
 #tut_list > * {
     margin: 5px 0;
+}
+
+#tut_controls {
+    display: flex;
+}
+
+#tut_controls > .stretchspacer {
+    flex: 1 1 0;
 }
 
 #tut_title {
@@ -350,7 +354,8 @@ a {
   border-color: rgba(0,0,0,.1);
   height: 34px;
   display: flex;
-  border:1px solid #b3b3b3;
+  border: 1px solid #b3b3b3;
+  align-items: center;
 }
 
 .toolbar-button {
@@ -358,6 +363,7 @@ a {
   padding: 0 8px;
   flex: 0 0 auto;
   background-color: transparent;
+  height: 100%;
 }
 
 .toolbar-button > * {
@@ -371,4 +377,8 @@ a {
 
 .toolbar-button:hover {
   background-color: #808080;
+}
+
+#status {
+    margin-left: 24px;
 }

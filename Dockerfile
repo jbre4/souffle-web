@@ -4,7 +4,10 @@ RUN apt-get update
 
 # Install Souffle dependencies
 
-RUN apt-get install -y autoconf automake bison build-essential clang doxygen flex g++ git libncurses5-dev libtool libsqlite3-dev make mcpp sqlite zlib1g-dev
+RUN apt-get install -y autoconf automake bison build-essential clang doxygen flex g++ git libncurses5-dev libtool libsqlite3-dev make sqlite zlib1g-dev
+
+# Install fake mcpp to disable #include
+COPY fake-mcpp.sh /bin/mcpp
 
 # Clone and build souffle
 
@@ -14,6 +17,12 @@ RUN git clone https://github.com/souffle-lang/souffle.git; \
     ./configure; \
     make -j"$(grep -c ^processor /proc/cpuinfo)"; \
     make install
+
+# Cleanup
+
+RUN rm -rf souffle; \
+    apt-get purge -y autoconf automake bison build-essential clang doxygen flex g++ git make; \
+    apt-get autoremove -y
 
 # Copy over souffle-web files
 

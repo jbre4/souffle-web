@@ -1,6 +1,27 @@
+function hide(el) {
+    el.classList.add("hide");
+}
+
+function show(el) {
+    el.classList.remove("hide");
+}
+
+function hidden(el, yes) {
+	if (yes) {
+		hide(el);
+	}
+	else {
+		show(el);
+	}
+}
+
+function byId(id) {
+    return document.getElementById(id);
+}
+
 var nonEmpty = false;
 
-var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+var editor = CodeMirror.fromTextArea(byId("code"), {
   styleActiveLine: true,
   lineNumbers: true,
   lineWrapping: true,
@@ -9,15 +30,35 @@ var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
 
 editor.setSize("100%", "100%")
 
-resp_body = document.getElementById("output");
+var resp_body = byId("output");
+var run_status = byId("status");
+
+function showStatus(str) {
+	run_status.innerText = str;
+	show(run_status);
+}
 
 function do_post() {
 	var xhr = new XMLHttpRequest();
 
 	xhr.onreadystatechange = function() {
-		if (this.readyState == 4) {
-			resp_body.value = this.response;
+		if (this.readyState != 4) {
+			return;
 		}
+
+		if (this.status != 200) {
+			if (this.status == 0) {
+				showStatus("Connection failure or other error");
+			}
+			else {
+				showStatus(`Failed to run code: server returned ${this.status}`);
+			}
+
+			return;
+		}
+
+		resp_body.value = this.response;
+		hide(run_status);
 	}
 
 	body = {
@@ -25,6 +66,9 @@ function do_post() {
 		tables: collectTables(),
 	};
 
+	showStatus("running...");
+
+	xhr.responseType = "text";
 	xhr.open("POST", "api/run", true);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify(body));
@@ -36,10 +80,6 @@ document.querySelector("#code").onkeypress = function(event) {
     return false;
   }
 };
-
-function byId(id) {
-    return document.getElementById(id);
-}
 
 tab_container = byId("tab_container");
 table_container = byId("table_container");
@@ -184,11 +224,11 @@ function clearTabs() {
 var overlay = byId("modal_overlay");
 
 function openForm() {
-  overlay.classList.remove("hide");
+  show(overlay);
 }
 
 function closeForm() {
-  overlay.classList.add("hide");
+  hide(overlay);
   byId("name_of_table").value = null;
   byId("num_of_col").value = null;
 }
@@ -221,6 +261,25 @@ function addTable() {
   closeForm();
 }
 
+function trimEmptyRows(data) {
+	for (let i = 0; i < data.length;) {
+		var empty = true;
+
+		for (let column of data[i]) {
+			if (column != "") {
+				empty = false;
+			}
+		}
+
+		if (empty) {
+			data.splice(i, 1);
+		}
+		else {
+			i++;
+		}
+	}
+}
+
 function collectTables() {
 	var tables = [];
 
@@ -231,6 +290,7 @@ function collectTables() {
 			data: tab.jexcel_table.getData(),
 		};
 
+		trimEmptyRows(table.data);
 		tables.push(table);
 	}
 
@@ -238,16 +298,8 @@ function collectTables() {
 }
 
 function toggleBar() {
-    byId("sidebar").classList.toggle("expanded");
+    byId("sidebar").classList.toggle("hidden");
     byId("sidehandle").classList.toggle("expanded");
-}
-
-function hide(el) {
-    el.classList.add("hide");
-}
-
-function show(el) {
-    el.classList.remove("hide");
 }
 
 tut_list_view = byId("tut_list_view");
@@ -321,6 +373,11 @@ async function fill_tables(tables) {
     }
 }
 
+async function fetch_editor_content(tut) {
+	fill_code(tut.prefill);
+	fill_tables(tut.tables);
+}
+
 async function fetch_tutorials() {
     var resp = await fetch("tutorial/index.json");
 
@@ -344,6 +401,14 @@ async function fetch_tutorials() {
         span.title = tut.title;
 
         span.onclick = async function() {
+			var resetBtn = byId("tut_reset");
+
+			resetBtn.onclick = function() {
+				fetch_editor_content(tut);
+			}
+
+			hidden(resetBtn, tut.prefill == "preserve");
+
             tut_title.innerText = tut.title;
 
             try {
@@ -359,10 +424,7 @@ async function fetch_tutorials() {
                 alert("Error fetching tutorial markdown: " + err);
                 return;
             }
-
-            fill_code(tut.prefill);
-            fill_tables(tut.tables);
-
+            fetch_editor_content(tut);
             tut_show_content();
         }
 

@@ -28,7 +28,10 @@
 	{
 		"name": "I/O Directives",
 		"markdown": "06/body.md",
-		"prefill": "preserve"
+		"prefill": "06/code.dl",
+		"tables": [
+			["A", 1, "06/A.csv"]
+		]
 	},
 	{
 		"name": "Lack of goals in Soufflé",

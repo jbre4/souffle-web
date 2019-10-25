@@ -1,0 +1,13 @@
+.decl A(n: symbol)
+.input A // facts are read from file A.facts
+
+.decl B(n: symbol)
+B(n) :- A(n).
+
+.decl C(n: symbol)
+.output C // output appears in C.csv
+C(n) :- B(n).
+
+.decl D(n: symbol)
+.printsize D // the number of facts in D is printed
+D(n) :- C(n).

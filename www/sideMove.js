@@ -27,6 +27,7 @@ function mouseMove(e){
 }
 
 function mouseUp(){
+  sidebar.style.transition = "width 0.5s"
   sidehandle.releaseCapture ? (
     sidehandle.releaseCapture(),
     sidehandle.onmousemove = sidehandle.onmouseup = null

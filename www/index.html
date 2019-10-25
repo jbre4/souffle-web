@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
+        <meta charset="utf-8">
         <title>Soufflé Web</title>
+        <link rel="icon" type="img/png" href="favicon.png">
         <script src="jexcel-master/dist/jexcel.js"></script>
         <link rel="stylesheet" href="jexcel-master/dist/jexcel.css" type="text/css" />
         <script src="jsuites-master/dist/jsuites.js"></script>
@@ -20,7 +21,7 @@
 
     <body>
         <div id="page">
-            <div id="sidebar" class="expanded">
+            <div id="sidebar">
                 <div id="tut_list_view">
                     <h1>Tutorials</h1>
                     <p>Choose a tutorial from the list.</p>
@@ -29,7 +30,11 @@
                 </div>
 
                 <div id="tut_content_view" class="hide">
-                    <div><span class="link" onclick="tut_show_index()">Back to index</span></div>
+                    <div id="tut_controls">
+                        <span class="link" onclick="tut_show_index()">Back to index</span>
+                        <span class="stretchspacer"></span>
+                        <span class="link" id="tut_reset">Reset</span>
+                    </div>
                     <h1 id="tut_title"></h1>
                     <hr/>
                     <div id="tut_body"></div>
@@ -42,8 +47,9 @@
             <div id="content">
                 <div id="toolbar">
                   <div class="toolbar-group">
-                    <button class="toolbar-button" onclick="do_post()" title="Run"><img src="images/run.png"></button>
-                    <button class="toolbar-button" onclick="openForm()" title="New Table"><img src="images/spreadsheet.png"></button>
+                    <button class="toolbar-button" onclick="do_post()" title="Run"><img src="images/run.png" alt="run"></button>
+                    <button class="toolbar-button" onclick="openForm()" title="New Table"><img src="images/spreadsheet.png" alt="new table"></button>
+                    <div id="status" class="hide"></div>
                   </div>
                 </div>
                 <div id="grid_container">
@@ -63,27 +69,28 @@
 
         <div id="footer">
             <span>
-                <a href="subpages/contact_page.html" target="_blank">Contact</a> | <a href="https://bitbucket.org/dlee0870/souffle_web_ide/src/master/" target="_blank">Bitbucket</a> | <a href="https://souffle-lang.github.io/" target="_blank">Soufflé</a>
+                <a href="subpages/contact.html" target="_blank">Contact</a> | <a href="https://bitbucket.org/dlee0870/souffle_web_ide/src/master/" target="_blank">Bitbucket</a> | <a href="https://souffle-lang.github.io/" target="_blank">Soufflé</a>
             </span>
         </div>
-    </body>
 
-    <div id="modal_overlay" class="hide">
-        <form id="new_table_form" onsubmit="addTable(); return false">
-          <div class="content">
-            <div class="title">Create New Table</div>
-            <div class="input_field">
-              <input class="input-line" type="text" placeholder="Table Name" id="name_of_table" required /><br>
-              <input class="input-line" type="number" placeholder="Number of Columns" min="1" id="num_of_col" required /><br>
-            </div>
-            <div id="spacing"></div>
-            <div>
-              <button type="button" id="cancel_button" onclick="closeForm()">Cancel</button>
-              <button type="submit" id="submit_button" value="Create">Create</button>
-            </div>
-          </div>
-        </form>
-    </div>
-    <script src="sideMove.js"></script>
-    <script src="index.js"></script>
+        <div id="modal_overlay" class="hide">
+            <form id="new_table_form" onsubmit="addTable(); return false">
+              <div class="content">
+                <div class="title">Create New Table</div>
+                <div class="input_field">
+                  <input class="input-line" type="text" placeholder="Table Name" id="name_of_table" required /><br>
+                  <input class="input-line" type="number" placeholder="Number of Columns" min="1" id="num_of_col" required /><br>
+                </div>
+                <div id="spacing"></div>
+                <div>
+                  <button type="button" id="cancel_button" onclick="closeForm()">Cancel</button>
+                  <button type="submit" id="submit_button" value="Create">Create</button>
+                </div>
+              </div>
+            </form>
+        </div>
+
+        <script src="index.js"></script>
+        <script src="sideMove.js"></script>
+    </body>
 </html>
