@@ -195,21 +195,21 @@ function closeForm() {
 
 function createTable(name, nc) {
 	div = createNewTab(name);
-	
+
 	if (div == null) {
 		alert("Table name already exists");
 	}
-	
+
 	div.table_name = name;
 	div.table_ncols = nc;
-	
+
 	var table = jexcel(div, {
 		minDimensions: [nc, 15],
 		tableOverflow: true,
 		columnSorting: false,
 		tableHeight: "100%",
 	});
-	
+
 	div.jexcel_table = table;
 	return table;
 }
@@ -271,21 +271,21 @@ async function fill_code(prefill) {
     if (prefill == "preserve") {
         return;
     }
-    
+
     resp_body.value = "";
-    
+
     if (prefill == undefined) {
         editor.setValue("");
         return;
     }
-    
+
     var resp = await fetch("tutorial/" + prefill);
-    
+
     if (!resp.ok) {
         alert("Error prefilling editor input: " + resp.statusText);
         return;
     }
-    
+
     editor.setValue(await resp.text());
 }
 
@@ -293,29 +293,29 @@ async function fill_tables(tables) {
     if (tables == "preserve") {
         return;
     }
-    
+
     clearTabs();
-    
+
     if (tables == undefined) {
         return;
     }
-    
+
     for (let table of tables) {
         var name = table[0];
         var ncol = table[1]
         var path = table[2];
-        
+
         var resp = await fetch("tutorial/" + path);
-        
+
         if (!resp.ok) {
             alert("Error prefilling tables: " + resp.statusText);
             return;
         }
-        
+
         var data = CSV.parse(await resp.text(), {
 			delimiter: "\t",
 		});
-        
+
         var jtable = createTable(name, ncol);
         jtable.setData(data);
     }
@@ -323,49 +323,49 @@ async function fill_tables(tables) {
 
 async function fetch_tutorials() {
     var resp = await fetch("tutorial/index.json");
-    
+
     if (!resp.ok) {
         throw resp.statusText;
     }
-    
+
     var tutorials = await resp.json();
-    
+
     tut_list.innerHTML = "";
-    
+
     for (let tut of tutorials) {
         if (tut.title == undefined) {
             tut.title = tut.name;
         }
-        
+
         var span = document.createElement("span");
-        
+
         span.classList.add("link");
         span.innerText = tut.name;
         span.title = tut.title;
-        
+
         span.onclick = async function() {
             tut_title.innerText = tut.title;
-            
+
             try {
                 var resp = await fetch("tutorial/" + tut.markdown);
-                
+
                 if (!resp.ok) {
                     throw resp.statusText;
                 }
-                
+
                 tut_body.innerHTML = marked(await resp.text());
             }
             catch (err) {
                 alert("Error fetching tutorial markdown: " + err);
                 return;
             }
-            
+
             fill_code(tut.prefill);
             fill_tables(tut.tables);
-            
+
             tut_show_content();
         }
-        
+
         tut_list.appendChild(span);
     }
 }
@@ -375,7 +375,7 @@ async function main() {
         headerIds: false,
         baseUrl: "tutorial/",
     });
-    
+
     try {
         await fetch_tutorials();
     }

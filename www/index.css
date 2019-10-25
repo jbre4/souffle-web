@@ -239,7 +239,7 @@ a {
 
 #sidebar {
     flex: 0 0 auto;
-    width: 0;
+    width: 0 !important;
     background-color: #e6e6e6;
     overflow: auto;
     transition: width 0.5s;
@@ -322,11 +322,11 @@ a {
     background-color: #c0c0c0;
 }
 
-#sidehandle > img {
+#sidehandle > input {
     max-width: 10px;
 }
 
-#sidehandle.expanded > img {
+#sidehandle.expanded > input {
     transform: scale(-1, 1);
 }
 
