@@ -354,7 +354,8 @@ a {
   border-color: rgba(0,0,0,.1);
   height: 34px;
   display: flex;
-  border:1px solid #b3b3b3;
+  border: 1px solid #b3b3b3;
+  align-items: center;
 }
 
 .toolbar-button {
@@ -362,6 +363,7 @@ a {
   padding: 0 8px;
   flex: 0 0 auto;
   background-color: transparent;
+  height: 100%;
 }
 
 .toolbar-button > * {
@@ -375,4 +377,8 @@ a {
 
 .toolbar-button:hover {
   background-color: #808080;
+}
+
+#status {
+    margin-left: 24px;
 }

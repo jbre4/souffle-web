@@ -15,9 +15,13 @@ function hidden(el, yes) {
 	}
 }
 
+function byId(id) {
+    return document.getElementById(id);
+}
+
 var nonEmpty = false;
 
-var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+var editor = CodeMirror.fromTextArea(byId("code"), {
   styleActiveLine: true,
   lineNumbers: true,
   lineWrapping: true,
@@ -26,22 +30,45 @@ var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
 
 editor.setSize("100%", "100%")
 
-resp_body = document.getElementById("output");
+var resp_body = byId("output");
+var run_status = byId("status");
+
+function showStatus(str) {
+	run_status.innerText = str;
+	show(run_status);
+}
 
 function do_post() {
 	var xhr = new XMLHttpRequest();
 
 	xhr.onreadystatechange = function() {
-		if (this.readyState == 4) {
-			resp_body.value = this.response;
+		if (this.readyState != 4) {
+			return;
 		}
+		
+		if (this.status != 200) {
+			if (this.status == 0) {
+				showStatus("Connection failure or other error");
+			}
+			else {
+				showStatus(`Failed to run code: server returned ${this.status}`);
+			}
+			
+			return;
+		}
+		
+		resp_body.value = this.response;
+		hide(run_status);
 	}
 
 	body = {
 		souffle_code: editor.getValue(),
 		tables: collectTables(),
 	};
-
+	
+	showStatus("running...");
+	
+	xhr.responseType = "text";
 	xhr.open("POST", "api/run", true);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify(body));
@@ -53,10 +80,6 @@ document.querySelector("#code").onkeypress = function(event) {
     return false;
   }
 };
-
-function byId(id) {
-    return document.getElementById(id);
-}
 
 tab_container = byId("tab_container");
 table_container = byId("table_container");
