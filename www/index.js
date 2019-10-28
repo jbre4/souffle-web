@@ -297,9 +297,19 @@ function collectTables() {
 	return tables;
 }
 
+var width = byId("sidebar").style.width;
 function toggleBar() {
-    byId("sidebar").classList.toggle("hidden");
-    byId("sidehandle").classList.toggle("expanded");
+
+
+    bindResize(document.getElementById("sidehandle"))
+    var new_width = byId("sidebar").style.width;
+    if(new_width == width){
+      byId("sidebar").classList.toggle("hidden");
+      byId("sidehandle").classList.toggle("expanded");
+    } else {
+      width = new_width;
+    }
+    console.log(width);
 }
 
 tut_list_view = byId("tut_list_view");
@@ -447,3 +457,44 @@ async function main() {
 }
 
 window.onload = main;
+
+
+function bindResize(sidehandle){
+var sidebar = document.getElementById("sidebar")
+x = 0;
+
+$(sidehandle).mousedown(function (e){
+  x = e.clientX - sidehandle.offsetWidth - $("#sidebar").width();
+
+  sidehandle.setCapture ? (
+    sidehandle.setCapture(),
+    sidehandle.onmousemove = function (ev){
+
+      mouseMove(ev || event);
+    },
+    sidehandle.onmouseup = mouseUp
+  ) : (
+    $(document).bind("mousemove", mouseMove).bind("mouseup", mouseUp)
+  );
+  e.preventDefault();
+
+});
+
+function mouseMove(e){
+  sidebar.style.transition = 'none';
+
+  sidebar.style.width = e.clientX - x - 20 + 'px';
+
+}
+
+function mouseUp(){
+  sidebar.style.transition = "width 0.5s"
+  sidehandle.releaseCapture ? (
+    sidehandle.releaseCapture(),
+    sidehandle.onmousemove = sidehandle.onmouseup = null
+  ) : (
+    $(document).unbind("mousemove", mouseMove).unbind("mouseup",mouseUp)
+  );
+}
+
+}
