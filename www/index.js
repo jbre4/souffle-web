@@ -298,18 +298,17 @@ function collectTables() {
 }
 
 var width = byId("sidebar").style.width;
+bindResize(document.getElementById("sidehandle"))
 function toggleBar() {
-
-
     bindResize(document.getElementById("sidehandle"))
     var new_width = byId("sidebar").style.width;
+
     if(new_width == width){
       byId("sidebar").classList.toggle("hidden");
       byId("sidehandle").classList.toggle("expanded");
     } else {
       width = new_width;
     }
-    console.log(width);
 }
 
 tut_list_view = byId("tut_list_view");

@@ -33,11 +33,16 @@ a {
 
 .link {
     cursor: pointer;
-    color: rgb(0, 0, 255);
+    color: rgb(0, 0, 0);
+    background-color: #e6e6e6;
+    width: 100%;
+    padding: 10px 5px;
+    border-radius: 1px;
 }
 
 .link:hover {
-    color: rgb(0, 0, 100);
+    color: rgb(0, 0, 255);
+    background-color: #bfbfbf;
 }
 
 #content {
@@ -253,10 +258,6 @@ a {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-}
-
-#tut_list > * {
-    margin: 5px 0;
 }
 
 #tut_controls {
