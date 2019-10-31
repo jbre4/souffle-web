@@ -22,6 +22,7 @@ The file contains an array of objects, where each object describes a tutorial. T
 		- number of columns _(if this is <1 or does not match the data, the behaviour is undefined)_
 		- relative URL to CSV file containing table data
 	- Example: `["foo", 2, "foo.csv"]`
+- `section`: Turns this tutorial into a section header. **All other fields are ignored if this is present**. See Sections section further below.
 
 Example:
 
@@ -56,3 +57,19 @@ Tutorial content is written in Markdown. All relative links in tutorial markdown
 ## Table data
 
 Table data is specified in CSV using tabs for seperators instead of commas.
+
+## Sections
+
+You can create sections by inserting a JSON object with a single string field called `section` whose value is the section name, example:
+
+	{"section": "This is a section"}
+
+This will appear in the tutorials section as non-clickable text approximately like this:
+
+		...
+		tutorial B
+	
+	This is a section:
+		tutorial C
+		tutorial D
+		...

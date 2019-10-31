@@ -5,6 +5,7 @@
 		"prefill": "preserve",
 		"tables": "preserve"
 	},
+	{"section": "First examples"},
 	{
 		"name": "Transitive closure",
 		"markdown": "02/body.md",
@@ -20,6 +21,7 @@
 		"markdown": "04/body.md",
 		"prefill": "04/code.dl"
 	},
+	{"section": "Relations"},
 	{
 		"name": "Relation declaration",
 		"markdown": "05/body.md",

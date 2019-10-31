@@ -1,5 +1,5 @@
 html {
-    font-family: Sans;
+    font-family: Arial, Helvetica, Sans;
     color: #222;
 }
 
@@ -31,13 +31,12 @@ a {
     text-decoration: none;
 }
 
-.link, .dropdown-btn{
+.link {
     cursor: pointer;
     color: rgb(0, 0, 0);
     width: 80%;
     padding: 10px 10%;
     border-radius: 2px;
-    font-family: Arial,sans-serif;
 }
 
 .link:hover {
@@ -260,8 +259,13 @@ a {
     align-items: flex-start;
 }
 
-#tut_list_view h1{
-  font-family: "Segoe UI",Arial,sans-serif;
+#tut_list_view > h1 {
+    text-align: center;
+}
+
+.tut_section {
+    margin-top: 5px;
+    font-weight: bold;
 }
 
 #tut_controls {

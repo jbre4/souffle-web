@@ -387,6 +387,56 @@ async function fetch_editor_content(tut) {
 	fill_tables(tut.tables);
 }
 
+function insert_section(list, name) {
+	var span = document.createElement("span");
+	span.classList.add("tut_section");
+	span.innerText = name + ":";
+	list.appendChild(span);
+}
+
+function insert_tutorial(list, tut) {
+	if (tut.title == undefined) {
+		tut.title = tut.name;
+	}
+
+	var span = document.createElement("span");
+
+	span.classList.add("link");
+	span.innerText = tut.name;
+	span.title = tut.title;
+
+	span.onclick = async function() {
+		var resetBtn = byId("tut_reset");
+
+		resetBtn.onclick = function() {
+			fetch_editor_content(tut);
+		}
+
+		hidden(resetBtn, tut.prefill == "preserve");
+
+		tut_title.innerText = tut.title;
+
+		try {
+			var resp = await fetch("tutorial/" + tut.markdown);
+
+			if (!resp.ok) {
+				throw resp.statusText;
+			}
+
+			tut_body.innerHTML = marked(await resp.text());
+		}
+		catch (err) {
+			alert("Error fetching tutorial markdown: " + err);
+			return;
+		}
+		
+		fetch_editor_content(tut);
+		tut_show_content();
+	}
+
+	list.appendChild(span);
+}
+
 async function fetch_tutorials() {
     var resp = await fetch("tutorial/index.json");
 
@@ -399,45 +449,12 @@ async function fetch_tutorials() {
     tut_list.innerHTML = "";
 
     for (let tut of tutorials) {
-        if (tut.title == undefined) {
-            tut.title = tut.name;
-        }
-
-        var span = document.createElement("span");
-
-        span.classList.add("link");
-        span.innerText = tut.name;
-        span.title = tut.title;
-
-        span.onclick = async function() {
-			var resetBtn = byId("tut_reset");
-
-			resetBtn.onclick = function() {
-				fetch_editor_content(tut);
-			}
-
-			hidden(resetBtn, tut.prefill == "preserve");
-
-            tut_title.innerText = tut.title;
-
-            try {
-                var resp = await fetch("tutorial/" + tut.markdown);
-
-                if (!resp.ok) {
-                    throw resp.statusText;
-                }
-
-                tut_body.innerHTML = marked(await resp.text());
-            }
-            catch (err) {
-                alert("Error fetching tutorial markdown: " + err);
-                return;
-            }
-            fetch_editor_content(tut);
-            tut_show_content();
-        }
-
-        tut_list.appendChild(span);
+		if (tut.section != undefined) {
+			insert_section(tut_list, tut.section);
+		}
+		else {
+			insert_tutorial(tut_list, tut);
+		}
     }
 }
 
