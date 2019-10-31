@@ -34,9 +34,8 @@ a {
 .link {
     cursor: pointer;
     color: rgb(0, 0, 0);
-    background-color: #e6e6e6;
     width: 100%;
-    padding: 10px 5px;
+    padding: 10px 0;
     border-radius: 1px;
 }
 
@@ -262,9 +261,10 @@ a {
 
 #tut_controls {
     display: flex;
+    text-align: center;
 }
 
-#tut_controls > .stretchspacer {
+#tut_controls > * {
     flex: 1 1 0;
 }
 
