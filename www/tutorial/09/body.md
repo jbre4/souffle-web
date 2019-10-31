@@ -1,0 +1,3 @@
+Soufflé’s type system is static, like languages like C and unlike languages like Python. The attributes of a relation must be defined before compilation (or interpretation), and types are checked at compile-time. This supports programmers having a clear idea of the definition of relations and their usage. To minimise evaluation time, no dynamic checks are made at runtime.
+
+Types correspond to the subdivision of elements (relations) and sets of elements over the universe. In particular, a type refers to either a subset of a universe or the universe itself. Elements of subsets are not defined explicitly. As we shall see with union types, subsets can be composed of other subsets.

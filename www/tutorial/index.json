@@ -24,8 +24,7 @@
 	{"section": "Relations"},
 	{
 		"name": "Relation declaration",
-		"markdown": "05/body.md",
-		"prefill": "preserve"
+		"markdown": "05/body.md"
 	},
 	{
 		"name": "I/O Directives",
@@ -37,12 +36,19 @@
 	},
 	{
 		"name": "Lack of goals in Soufflé",
-		"markdown": "07/body.md",
-		"prefill": "preserve"
+		"markdown": "07/body.md"
 	},
 	{
 		"name": "Syntactic conveniences",
-		"markdown": "08/body.md",
-		"prefill": "preserve"
+		"markdown": "08/body.md"
+	},
+	{"section": "Type system"},
+	{
+		"name": "Type system for attributes",
+		"markdown": "09/body.md"
+	},
+	{
+		"name": "Primitive types",
+		"markdown": "10/body.md"
 	}
 ]
