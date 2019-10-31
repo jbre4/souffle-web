@@ -15,6 +15,9 @@ RUN git clone https://github.com/souffle-lang/souffle.git; \
     make -j"$(grep -c ^processor /proc/cpuinfo)"; \
     make install
 
+# Install packages we need
+RUN apt-get install -y perl
+
 # Cleanup
 
 RUN rm -rf souffle; \
@@ -29,6 +32,7 @@ COPY fake-mcpp.sh /bin/mcpp
 RUN mkdir souffle-web
 WORKDIR souffle-web
 
+COPY timeout .
 COPY server.py .
 COPY www www
 

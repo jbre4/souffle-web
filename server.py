@@ -17,6 +17,7 @@ from threading import Lock
 # 400 - Bad Request, something is wrong and it's the clients fault
 # 403 - Permission Denied
 # 404 - Not Found
+# 408 - Request Timeout
 # 500 - Internal Server Error, something is wrong and it's our fault
 # 501 - Not Implemented
 
@@ -83,7 +84,7 @@ def create_temp_dir(token):
 	return path
 
 def run_souffle(src, dir):
-	args = ["souffle", "/dev/stdin", "-D", "-"]
+	args = ["./timeout", "-t", "5", "-m", "102400", "--no-info-on-success", "-c", "souffle", "/dev/stdin", "-D", "-"]
 	if dir != None:
 		args.extend(["-F", dir])
 	return subprocess.run(args, input=bytearray(src, "utf8"), capture_output=True)
@@ -146,8 +147,11 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
 		except FileNotFoundError:
 			self.send_error(500, "Souffle is not installed")
 			return
-
-		if proc.returncode != 0:
+		
+		if proc.returncode in range(128, 128 + 65):
+			self.send_error(408, "Forcibly killed due to time or memory limit reached")
+			return;
+		elif proc.returncode != 0:
 			body = proc.stderr
 		else:
 			body = proc.stdout
