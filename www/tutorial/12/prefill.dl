@@ -1,0 +1,3 @@
+.decl A(x:number)
+.output A
+A(0 lor 1).

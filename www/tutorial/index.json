@@ -50,5 +50,26 @@
 	{
 		"name": "Primitive types",
 		"markdown": "10/body.md"
+	},
+	{"section": "Arithmetic expressions"},
+	{
+		"name": "Introduction",
+		"title": "Arithmetic expressions introduction",
+		"markdown": "11/body.md",
+		"prefill": "11/prefill.dl"
+	},
+	{
+		"name": "Number encoding",
+		"markdown": "12/body.md",
+		"prefill": "12/prefill.dl"
+	},
+	{
+		"name": "The functor $",
+		"markdown": "13/body.md",
+		"prefill": "13/prefill.dl"
+	},
+	{
+		"name": "String functors",
+		"markdown": "14/body.md"
 	}
 ]

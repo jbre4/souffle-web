@@ -1,0 +1,4 @@
+.decl A(n: number)
+.output A
+A(1).
+A(x+1) :- A(x), x < 9.
