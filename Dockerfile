@@ -32,7 +32,7 @@ COPY fake-mcpp.sh /bin/mcpp
 RUN mkdir souffle-web
 WORKDIR souffle-web
 
-COPY timeout .
+COPY third-party third-party
 COPY server.py .
 COPY www www
 

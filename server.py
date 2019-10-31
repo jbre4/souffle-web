@@ -84,7 +84,7 @@ def create_temp_dir(token):
 	return path
 
 def run_souffle(src, dir):
-	args = ["./timeout", "-t", "5", "-m", "102400", "--no-info-on-success", "-c", "souffle", "/dev/stdin", "-D", "-"]
+	args = ["./third-party/timeout", "-t", "5", "-m", "102400", "--no-info-on-success", "-c", "souffle", "/dev/stdin", "-D", "-"]
 	if dir != None:
 		args.extend(["-F", dir])
 	return subprocess.run(args, input=bytearray(src, "utf8"), capture_output=True)
