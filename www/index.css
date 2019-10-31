@@ -31,12 +31,13 @@ a {
     text-decoration: none;
 }
 
-.link {
+.link, .dropdown-btn{
     cursor: pointer;
     color: rgb(0, 0, 0);
-    width: 100%;
-    padding: 10px 0;
-    border-radius: 1px;
+    width: 80%;
+    padding: 10px 10%;
+    border-radius: 2px;
+    font-family: Arial,sans-serif;
 }
 
 .link:hover {
@@ -257,6 +258,10 @@ a {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+#tut_list_view h1{
+  font-family: "Segoe UI",Arial,sans-serif;
 }
 
 #tut_controls {
