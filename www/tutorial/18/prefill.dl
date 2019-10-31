@@ -1,0 +1,4 @@
+.decl A(n:number, w:symbol)
+A(1, "a"). A(10, "b"). A(100, "c").
+.decl MaxA(x: number,w:symbol)
+MaxA(y, w) :- y = max x:{A(x, w)}.

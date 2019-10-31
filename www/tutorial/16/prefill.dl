@@ -1,0 +1,8 @@
+.decl Car(name: symbol, colour:symbol)
+Car("Audi", "blue").
+Car("VW", "red").
+Car("BMW", "blue").
+
+.decl BlueCarCount(x: number)
+BlueCarCount(c) :- c = count:{Car(_,"blue")}.
+ .output BlueCarCount

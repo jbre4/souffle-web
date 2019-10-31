@@ -71,5 +71,27 @@
 	{
 		"name": "String functors",
 		"markdown": "14/body.md"
+	},
+	{"section": "Aggregation"},
+	{
+		"name": "Introduction",
+		"title": "Aggregation introduction",
+		"markdown": "15/body.md"
+	},
+	{
+		"name": "Counting",
+		"markdown": "16/body.md",
+		"prefill": "16/prefill.dl"
+	},
+	{
+		"name": "Maximum, Minimum, and Sum",
+		"markdown": "17/body.md",
+		"prefill": "17/prefill.dl"
+	},
+	{
+		"name": "Witnesses",
+		"title": "Witnesses are not permitted",
+		"markdown": "18/body.md",
+		"prefill": "18/prefill.dl"
 	}
 ]
