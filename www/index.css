@@ -245,7 +245,7 @@ a {
 }
 
 #sidebar > div {
-    margin: 20px 20px 0 20px;
+    margin: 20px 20px 20px 20px;
 }
 
 #sidebar.hidden {
@@ -317,6 +317,16 @@ a {
 
 #tut_body li {
     margin: 8px 0;
+}
+
+#tut_nav {
+    display: flex;
+    text-align: center;
+    margin-top: 50px;
+}
+
+#tut_nav > * {
+    flex: 1 1 0;
 }
 
 #sidehandle {

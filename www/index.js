@@ -387,6 +387,63 @@ async function fetch_editor_content(tut) {
 	fill_tables(tut.tables);
 }
 
+var tutorials = [];
+
+async function open_tutorial(index) {
+	var tut = tutorials[index];
+	var resetBtn = byId("tut_reset");
+
+	resetBtn.onclick = function() {
+		fetch_editor_content(tut);
+	}
+
+	hidden(resetBtn, tut.prefill == "preserve");
+
+	tut_title.innerText = tut.title;
+
+	try {
+		var resp = await fetch("tutorial/" + tut.markdown);
+
+		if (!resp.ok) {
+			throw resp.statusText;
+		}
+
+		tut_body.innerHTML = marked(await resp.text());
+	}
+	catch (err) {
+		alert("Error fetching tutorial markdown: " + err);
+		return;
+	}
+	
+	var nav_prev = byId("nav_previous");
+	var nav_next = byId("nav_next");
+	
+	if (index > 0) {
+		nav_prev.onclick = function() {
+			open_tutorial(index - 1);
+		}
+		
+		show(nav_prev);
+	}
+	else {
+		hide(nav_prev);
+	}
+	
+	if (index < tutorials.length - 1) {
+		nav_next.onclick = function() {
+			open_tutorial(index + 1);
+		}
+		
+		show(nav_next);
+	}
+	else {
+		hide(nav_next);
+	}
+	
+	fetch_editor_content(tut);
+	tut_show_content();
+}
+
 function insert_section(list, name) {
 	var span = document.createElement("span");
 	span.classList.add("tut_section");
@@ -405,33 +462,8 @@ function insert_tutorial(list, tut) {
 	span.innerText = tut.name;
 	span.title = tut.title;
 
-	span.onclick = async function() {
-		var resetBtn = byId("tut_reset");
-
-		resetBtn.onclick = function() {
-			fetch_editor_content(tut);
-		}
-
-		hidden(resetBtn, tut.prefill == "preserve");
-
-		tut_title.innerText = tut.title;
-
-		try {
-			var resp = await fetch("tutorial/" + tut.markdown);
-
-			if (!resp.ok) {
-				throw resp.statusText;
-			}
-
-			tut_body.innerHTML = marked(await resp.text());
-		}
-		catch (err) {
-			alert("Error fetching tutorial markdown: " + err);
-			return;
-		}
-		
-		fetch_editor_content(tut);
-		tut_show_content();
+	span.onclick = function() {
+		open_tutorial(tut.index);
 	}
 
 	list.appendChild(span);
@@ -444,16 +476,20 @@ async function fetch_tutorials() {
         throw resp.statusText;
     }
 
-    var tutorials = await resp.json();
+    manifest = await resp.json();
 
     tut_list.innerHTML = "";
 
-    for (let tut of tutorials) {
-		if (tut.section != undefined) {
-			insert_section(tut_list, tut.section);
+    for (var i = 0; i < manifest.length; i++) {
+		var item = manifest[i];
+		
+		if (item.section != undefined) {
+			insert_section(tut_list, item.section);
 		}
 		else {
-			insert_tutorial(tut_list, tut);
+			item.index = tutorials.length;
+			tutorials.push(item);
+			insert_tutorial(tut_list, item);
 		}
     }
 }
