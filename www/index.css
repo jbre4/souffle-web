@@ -400,6 +400,7 @@ a {
 
 .toolbar-button:hover {
   background-color: #808080;
+  cursor:pointer;
 }
 
 #status {
