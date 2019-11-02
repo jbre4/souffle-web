@@ -405,3 +405,7 @@ a {
 #status {
     margin-left: 24px;
 }
+
+#File {
+  display:none;
+}

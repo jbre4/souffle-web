@@ -414,32 +414,32 @@ async function open_tutorial(index) {
 		alert("Error fetching tutorial markdown: " + err);
 		return;
 	}
-	
+
 	var nav_prev = byId("nav_previous");
 	var nav_next = byId("nav_next");
-	
+
 	if (index > 0) {
 		nav_prev.onclick = function() {
 			open_tutorial(index - 1);
 		}
-		
+
 		show(nav_prev);
 	}
 	else {
 		hide(nav_prev);
 	}
-	
+
 	if (index < tutorials.length - 1) {
 		nav_next.onclick = function() {
 			open_tutorial(index + 1);
 		}
-		
+
 		show(nav_next);
 	}
 	else {
 		hide(nav_next);
 	}
-	
+
 	fetch_editor_content(tut);
 	tut_show_content();
 }
@@ -482,7 +482,7 @@ async function fetch_tutorials() {
 
     for (var i = 0; i < manifest.length; i++) {
 		var item = manifest[i];
-		
+
 		if (item.section != undefined) {
 			insert_section(tut_list, item.section);
 		}
@@ -549,4 +549,21 @@ function mouseUp(){
   );
 }
 
+}
+
+function simulateClick(){
+  var a = $("#File").click();
+}
+
+function upload(){
+  var resp = byId("File").files[0];
+  var reader = new FileReader();
+
+  reader.onload = function()
+  {
+     editor.setValue(this.result);
+  };
+  reader.readAsText(resp);
+  byId("File").value="";
+  return;
 }
