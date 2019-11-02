@@ -1,0 +1,11 @@
+.decl Edge(x:number, y:number)
+Edge(1,2).
+Edge(500,1).
+Edge(i+1,i+2) :- Edge(i,i+1), i < 499.
+
+.decl Path(x:number, y:number)
+.printsize Path
+Path(x,y) :- Edge(x,y).
+// Path(x,z) :- Path(x,y), Path(y,z). .strict
+// Path(x,z) :- Path(x,y), Edge(y,z). .strict
+// Path(x,z) :- Edge(x,y), Path(y,z). .strict

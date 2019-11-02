@@ -1,0 +1,1 @@
+Each record type has a hidden type relation. There, elements of a record are translated to a number. During evaluation, if a record does not exist, it is created on the fly. Considering the example on the right:

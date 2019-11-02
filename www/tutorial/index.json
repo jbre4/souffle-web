@@ -93,5 +93,34 @@
 		"title": "Witnesses are not permitted",
 		"markdown": "18/body.md",
 		"prefill": "18/prefill.dl"
+	},
+	{"section": "Records"},
+	{
+		"name": "Introduction",
+		"title": "Records introduction",
+		"markdown": "19/body.md",
+		"prefill": "19/prefill.dl"
+	},
+	{
+		"name": "Record internals",
+		"title": "Overview of record internals",
+		"markdown": "20/body.md",
+		"prefill": "20/prefill.dl"
+	},
+	{
+		"name": "Recursive records",
+		"markdown": "21/body.md",
+		"prefill": "21/prefill.dl"
+	},
+	{"section": "Components"},
+	{
+		"name": "Components",
+		"markdown": "22/body.md"
+	},
+	{"section": "Performance and profilling facilities"},
+	{
+		"name": "Performance and profilling facilities",
+		"markdown": "23/body.md",
+		"prefill": "23/prefill.dl"
 	}
 ]

@@ -1,0 +1,10 @@
+// Pair of numbers
+.type Pair = [a:number, b:number]
+
+.decl A(p: Pair)  // declare a set of pairs
+A([1,2]).
+A([3,4]).
+A([4,5]).
+
+.decl Flatten(a:number, b:number) output
+Flatten(a,b) :- A([a,b]).

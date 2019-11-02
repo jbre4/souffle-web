@@ -1,0 +1,7 @@
+.type IntList = [next: IntList, x: number]
+.decl L(l: IntList)
+L([nil,10]).
+L([r1,x+10]) :- L(r1), r1=[r2,x], x < 30.
+.decl Flatten(x: number)
+Flatten(x) :- L([_,x]).
+.output Flatten
