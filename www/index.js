@@ -567,3 +567,18 @@ function upload(){
   byId("File").value="";
   return;
 }
+
+
+function download() {
+  var file = new Blob([editor.getValue()], {type: "text/plain"});
+  var a = document.createElement("a"),
+        url = URL.createObjectURL(file);
+  a.href = url;
+  a.download = "Soufflé-Web-Code.dl";
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function() {
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+  }, 0);
+}
