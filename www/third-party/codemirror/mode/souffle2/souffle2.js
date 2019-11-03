@@ -709,8 +709,6 @@ CodeMirror.defineMode("souffle2", function(config, parserConfig) {
     return pass(expression, forspec2)
   }
   function functiondef(type, value) {
-    console.log(type);
-    console.log(value);
     if (value == "*") {cx.marked = "keyword"; return cont(functiondef);}
     if (type == "variable") {register(value); return cont(functiondef);}
     if (type == "(") return cont(commasep(funarg, ")"));

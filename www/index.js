@@ -290,7 +290,7 @@ function collectTables() {
 			data: tab.jexcel_table.getData(),
 		};
 
-		trimEmptyRows(table.data);
+		trimEmptyRows(tab.jexcel_table.getData());
 		tables.push(table);
 	}
 
@@ -571,6 +571,7 @@ function upload(){
 
 function download() {
   var file = new Blob([editor.getValue()], {type: "text/plain"});
+
   var a = document.createElement("a"),
         url = URL.createObjectURL(file);
   a.href = url;
@@ -581,4 +582,37 @@ function download() {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
   }, 0);
+}
+
+function downloadZip() {
+  var zip = new JSZip();
+  zip.file("Soufflé-Web-Code.dl", editor.getValue());
+  zip.file("Soufflé-Web-Output.txt", byId("output").value);
+
+  for (let tab of getAllTabs()) {
+    table = {
+			name: tab.table_name,
+			ncols: tab.table_ncols,
+			data: tab.jexcel_table.getData(),
+		};
+    dataName = tab.table_name + ".facts";
+    zip.file(dataName, toFacts(table.data));
+	}
+
+  zip.generateAsync({type:"blob"})
+  .then(function(content) {
+    saveAs(content, "archive.zip");
+  });
+}
+
+function toFacts(data){
+  var content = "";
+  for(i=0;i<data.length;i++){
+    for(j=0; j<data[i].length; j++){
+      content += data[i][j];
+      content += " ";
+    }
+    content += "\n";
+  }
+  return content;
 }
