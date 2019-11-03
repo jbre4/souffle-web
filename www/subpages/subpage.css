@@ -3,14 +3,21 @@ body {
 	margin: 10px 50px;
 	font-size: 14px;
 	color: #222;
-	background-color: #fafafa;
+	background-color: #e6e6e6;
+	text-align: center;
 }
 
 h1 {
 	text-align: center;
 	margin: 40px 0;
+	font-family: "Gill Sans", sans-serif;
 }
 
 a {
 	text-decoration: none;
+}
+
+p {
+	font-family: "Gill Sans", sans-serif;
+	font-size: 20px;
 }
