@@ -1,3 +1,7 @@
 __pycache__
 .DS_Store
 .Rhistory
+
+# nodejs stuff
+node_modules
+package-lock.json
