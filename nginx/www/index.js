@@ -290,7 +290,7 @@ function collectTables() {
 			data: tab.jexcel_table.getData(),
 		};
 
-		trimEmptyRows(tab.jexcel_table.getData());
+		trimEmptyRows(table.data);
 		tables.push(table);
 	}
 
