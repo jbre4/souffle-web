@@ -27,26 +27,6 @@ tokens = set()
 if len(sys.argv) == 2:
 	port = int(sys.argv[1])
 
-def ext_to_mime(ext):
-	mimemap = {
-		".html": "text/html",
-		".css":  "text/css",
-		".js":   "application/javascript",
-		".png":  "image/png",
-		".jpg":  "image/jpeg",
-		".jpeg": "image/jpeg",
-		".gif":  "image/gif",
-		".txt":  "text/plain",
-		".json": "application/json",
-		".ico":  "image/x-icon",
-		".md":   "text/plain",
-		".dl":   "text/plain",
-		".csv":  "text/plain",
-		".fact": "text/plain",
-	}
-
-	return mimemap.get(ext, "application/octet-stream")
-
 session_mutex = Lock()
 
 def generate_token():
@@ -90,41 +70,6 @@ def run_souffle(src, dir):
 	return subprocess.run(args, input=bytearray(src, "utf8"), capture_output=True)
 
 class RequestHandler(http.server.BaseHTTPRequestHandler):
-	def serve_file(self):
-		path = self.path
-
-		if not os.path.isabs(path):
-			self.send_error(400)
-			return
-
-		path = os.path.normpath(path)
-
-		if path == "/":
-			path = "/index.html"
-
-		path = "www" + path
-
-		if os.path.isdir(path):
-			self.send_error(403)
-			return
-		elif not os.path.exists(path):
-			self.send_error(404)
-			return
-
-		ext = os.path.splitext(path)[1]
-		mime = ext_to_mime(ext)
-
-		self.send_response(200)
-		self.send_header("Content-Type", mime)
-		self.send_header("Content-Length", os.path.getsize(path))
-		self.end_headers()
-
-		file = open(path, "rb")
-		self.wfile.write(file.read())
-
-	def do_GET(self):
-		self.serve_file()
-
 	def api_do_run(self, basedir):
 		self.error_message_format = "%(message)s"
 		self.error_content_type = "text/plain"

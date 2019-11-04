@@ -2,7 +2,7 @@
 
 ## `index.json`
 
-Before writing the actual tutorial content, you first must edit `www/tutorial/index.json`. This file is fetched and parsed when the page loads.
+Before writing the actual tutorial content, you first must edit `nginx/www/tutorial/index.json`. This file is fetched and parsed when the page loads.
 
 **Note**: All URLs in this file are relative to `tutorial/` and must not contain a leading slash.
 

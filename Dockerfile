@@ -34,6 +34,5 @@ WORKDIR souffle-web
 
 COPY third-party third-party
 COPY server.py .
-COPY www www
 
-ENTRYPOINT ["python3", "-u", "server.py"]
+ENTRYPOINT ["python3", "-u", "server.py", "8123"]

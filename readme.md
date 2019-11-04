@@ -33,19 +33,6 @@ If you wish to update `souffle`, you must force rebuild the image from scratch:
 
 This will force the latest version of souffle to be cloned and built upon image creation.
 
-### Without Docker (natively)
-`cd` into the project directory then
-
-    $ python server.py [port]
-
-The port is optional and defaults to 8000. The server will start serving files from the `www` directory.
-
-You may now open `http://localhost:[port]` in your browser.
-
-**Security note:** It is highly recommended to put the server behind a webserver such as NGINX or Apache.
-
-**TODO:** Write nginx example config.
-
 #### Dependencies
 
 - Python 3.7

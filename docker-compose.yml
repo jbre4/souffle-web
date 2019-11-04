@@ -4,5 +4,8 @@ services:
     souffle-web:
         build: .
         restart: always
+    nginx:
+        build: nginx/
+        restart: always
         ports:
             - 8000:8000
