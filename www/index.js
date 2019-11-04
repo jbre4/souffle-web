@@ -575,6 +575,7 @@ function download() {
   var a = document.createElement("a"),
         url = URL.createObjectURL(file);
   a.href = url;
+  a.classList.add("hide");
   a.download = "Soufflé-Web-Code.dl";
   document.body.appendChild(a);
   a.click();
