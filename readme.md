@@ -37,7 +37,12 @@ If you wish to update `souffle`, you must force rebuild the image from scratch:
 
 This will force the latest version of `souffle` to be cloned and built upon image creation.
 
-#### Dependencies
+### Dependencies
 
 - Python 3.7
 - [souffle](https://github.com/souffle-lang/souffle)
+
+## Documentation
+
+- [API documentation](doc/api.md)
+- [Tutorial documentation](doc/tutorials.md)
