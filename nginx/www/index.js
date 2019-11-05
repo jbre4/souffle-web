@@ -252,6 +252,7 @@ function createTable(name, nc) {
 
 	if (div == null) {
 		alert("Table name already exists");
+		return null;
 	}
 
 	div.table_name = name;
@@ -271,8 +272,10 @@ function createTable(name, nc) {
 function addTable() {
   var name = byId("name_of_table").value;
   var n_cols = byId("num_of_col").value;
-  createTable(name, n_cols);
-  closeForm();
+  
+  if (createTable(name, n_cols) != null) {
+	  closeForm();
+  }
 }
 
 function trimEmptyRows(data) {
