@@ -74,12 +74,11 @@ function do_post() {
 	xhr.send(JSON.stringify(body));
 }
 
-document.querySelector("#code").onkeypress = function(event) {
-  if (event.keyCode == 13 && event.shiftKey) {
-    do_post();
-    return false;
-  }
-};
+editor.addKeyMap({
+	"Shift-Enter": function() {
+		do_post();
+	}
+});
 
 tab_container = byId("tab_container");
 table_container = byId("table_container");
