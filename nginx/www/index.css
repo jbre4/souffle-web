@@ -153,9 +153,9 @@ a {
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
     padding: 5px 10px;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
 }
 
 #tab_container > .tab_button > .tab_text {
@@ -163,9 +163,13 @@ a {
 }
 
 #tab_container > .tab_button.current {
-    font-weight: bold;
-    border-bottom: none;
     background-color: white;
+    border-left: 1px solid #b3b3b3;
+    border-right: 1px solid #b3b3b3;
+}
+
+#tab_container > .tab_button:not(.current):hover {
+    background-color: #d4d4d4;
 }
 
 #tab_container > .tab_button .xbtn {
@@ -174,6 +178,10 @@ a {
 
 #tab_container > .tab_button .xbtn:hover {
 	color: red;
+}
+
+.tab_button:first-child {
+    border-left: none !important;
 }
 
 #modal_overlay {

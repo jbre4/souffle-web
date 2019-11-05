@@ -238,7 +238,8 @@ function clearTabs() {
 var overlay = byId("modal_overlay");
 
 function openForm() {
-  show(overlay);
+	show(overlay);
+	byId("name_of_table").focus();
 }
 
 function closeForm() {
