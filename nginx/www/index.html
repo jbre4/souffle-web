@@ -67,8 +67,16 @@
                         <div id="tab_container"></div>
                         <div id="table_container"></div>
                     </div>
-
-                    <textarea readonly autocomplete="off" id="output"></textarea>
+                    
+                    <div class="output_container" id="stdout_container">
+                        <h1>Output</h1>
+                        <textarea readonly autocomplete="off" id="stdout"></textarea>
+                    </div>
+                    
+                    <div class="output_container" id="stderr_container">
+                        <h1>Errors &amp; Warnings</h1>
+                        <textarea readonly autocomplete="off" id="stderr"></textarea>
+                    </div>
                 </div>
             </div>
         </div>

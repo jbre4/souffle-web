@@ -30,7 +30,8 @@ var editor = CodeMirror.fromTextArea(byId("code"), {
 
 editor.setSize("100%", "100%")
 
-var resp_body = byId("output");
+var resp_stdout = byId("stdout");
+var resp_stderr = byId("stderr");
 var run_status = byId("status");
 
 function showStatus(str) {
@@ -48,17 +49,31 @@ function do_post() {
 
 		if (this.status != 200) {
 			if (this.status == 0) {
-				showStatus("Connection failure or other error");
+				showStatus("Could not connect to the server");
+				return;
 			}
-			else {
-				showStatus(`Failed to run code: server returned ${this.status}`);
+			
+			try {
+				showStatus(this.response.error);
 			}
-
+			catch (e) {
+				showStatus(`Server does not seem to be configured correctly (returned ${this.status} ${this.statusText})`);
+			}
+			
 			return;
 		}
 
-		resp_body.value = this.response;
-		hide(run_status);
+		var resp = this.response;
+		
+		if (resp.return_code != 0) {
+			showStatus("Souffle process returned " + resp.return_code);
+		}
+		else {
+			hide(run_status);
+		}
+		
+		resp_stdout.value = resp.stdout;
+		resp_stderr.value = resp.stderr;
 	}
 
 	body = {
@@ -68,7 +83,7 @@ function do_post() {
 
 	showStatus("running...");
 
-	xhr.responseType = "text";
+	xhr.responseType = "json";
 	xhr.open("POST", "api/run", true);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify(body));
@@ -331,8 +346,10 @@ async function fill_code(prefill) {
     if (prefill == "preserve") {
         return;
     }
-
-    resp_body.value = "";
+    
+    resp_stdout.value = "";
+	resp_stderr.value = "";
+	hide(run_status);
 
     if (prefill == undefined) {
         editor.setValue("");

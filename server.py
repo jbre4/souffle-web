@@ -67,13 +67,10 @@ def run_souffle(src, dir):
 	args = ["./third-party/timeout", "-t", "5", "-m", "102400", "--no-info-on-success", "-c", "souffle", "/dev/stdin", "-D", "-"]
 	if dir != None:
 		args.extend(["-F", dir])
-	return subprocess.run(args, input=bytearray(src, "utf8"), capture_output=True)
+	return subprocess.run(args, input=src, encoding="utf8", capture_output=True, text=True)
 
 class RequestHandler(http.server.BaseHTTPRequestHandler):
 	def api_do_run(self, basedir):
-		self.error_message_format = "%(message)s"
-		self.error_content_type = "text/plain"
-		
 		length = int(self.headers["Content-Length"])
 		type = self.headers["Content-Type"]
 		
@@ -86,6 +83,8 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
 		
 		for table in req["tables"]:
 			generate_fact_file(table, basedir)
+		
+		resp = {};
 
 		try:
 			proc = run_souffle(req["souffle_code"], basedir)
@@ -96,29 +95,34 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
 		if proc.returncode in range(128, 128 + 65):
 			self.send_error(408, "Forcibly killed due to time or memory limit reached")
 			return;
-		elif proc.returncode != 0:
-			body = proc.stderr
-		else:
-			body = proc.stdout
+		
+		resp["return_code"] = proc.returncode;
+		resp["stdout"] = proc.stdout;
+		resp["stderr"] = proc.stderr;
+		
+		respbytes = bytearray(json.dumps(resp), "utf8")
 
 		self.send_response(200)
-		self.send_header("Content-Type", "text/plain")
-		self.send_header("Content-Length", len(body))
+		self.send_header("Content-Type", "application/json")
+		self.send_header("Content-Length", len(respbytes))
 		self.end_headers()
 
-		self.wfile.write(body)
+		self.wfile.write(respbytes)
 
 	def do_POST(self):
 		if self.path == "/api/run":
+			self.error_message_format = "{\"error\": \"%(message)s\"}"
+			self.error_content_type = "application/json"
+			
 			session = generate_token()
 			basedir = create_temp_dir(session)
 
 			try:
 				self.api_do_run(basedir)
 			except json.decoder.JSONDecodeError:
-				self.send_error(400, "Malformed JSON")
+				self.send_error(400, "Malformed JSON (invalid syntax)")
 			except KeyError:
-				self.send_error(400, "Malformed request object")
+				self.send_error(400, "Malformed request object (missing field?)")
 
 			shutil.rmtree(basedir)
 			delete_token(session)

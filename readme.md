@@ -1,6 +1,6 @@
-# Souffle Web IDE
+# Soufflé Web IDE
 
-A web interface for the logic programming language [Souffle](https://souffle-lang.github.io/index.html).
+A web interface for the logic programming language [Soufflé](https://souffle-lang.github.io/index.html).
 
 ## Running the server
 
@@ -23,17 +23,21 @@ To stop the server:
 
 #### Updating
 
-After pulling new changes, the docker image must be rebuilt, this should be done automatically by `docker-compose` by detecting the changes. If this doesn't happen, refer to the section directly below.
+After pulling or making new changes, simply run
 
-#### Updating Souffle
+    docker-compose up -d --build
+
+to rebuild the image and restart the server in one go.
+
+#### Updating Soufflé
 
 If you wish to update `souffle`, you must force rebuild the image from scratch:
 
     docker-compose build --no-cache
 
-This will force the latest version of souffle to be cloned and built upon image creation.
+This will force the latest version of `souffle` to be cloned and built upon image creation.
 
 #### Dependencies
 
 - Python 3.7
-- [Souffle](https://github.com/souffle-lang/souffle)
+- [souffle](https://github.com/souffle-lang/souffle)
