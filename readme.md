@@ -21,9 +21,19 @@ To stop the server:
 
     docker-compose down
 
+#### Configuration
+
+Create a file called `config.json` in the repositories top-level directory. This can be copied from `doc/config.json` for a default one. (`config.json` is _not_ tracked by git.)
+
+Then, [read the configuration docs](doc/config.md).
+
+Finally, rebuild and restart the server (see **Updating**).
+
+_Note: if `config.json` is not created, then `doc/config.json` will be copied into the docker image and used instead._
+
 #### Updating
 
-After pulling or making new changes, simply run
+After pulling or making new changes or changing configuration, simply run
 
     docker-compose up -d --build
 
@@ -44,5 +54,6 @@ This will force the latest version of `souffle` to be cloned and built upon imag
 
 ## Documentation
 
+- [Configuration](doc/config.md)
 - [API documentation](doc/api.md)
 - [Tutorial documentation](doc/tutorials.md)

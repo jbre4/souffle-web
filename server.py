@@ -21,6 +21,10 @@ from threading import Lock
 # 500 - Internal Server Error, something is wrong and it's our fault
 # 501 - Not Implemented
 
+config = json.loads(open("config.json").read())
+time_limit = config["time_limit"]
+mem_limit = config["mem_limit"]
+
 port = 8000
 tokens = set()
 
@@ -64,7 +68,7 @@ def create_temp_dir(token):
 	return path
 
 def run_souffle(src, dir):
-	args = ["./third-party/timeout", "-t", "5", "-m", "102400", "--no-info-on-success", "-c", "souffle", "/dev/stdin", "-D", "-"]
+	args = ["./third-party/timeout", "-t", str(time_limit), "-m", str(mem_limit), "--no-info-on-success", "-c", "souffle", "/dev/stdin", "-D", "-"]
 	if dir != None:
 		args.extend(["-F", dir])
 	return subprocess.run(args, input=src, encoding="utf8", capture_output=True, text=True)

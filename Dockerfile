@@ -34,5 +34,6 @@ WORKDIR souffle-web
 
 COPY third-party third-party
 COPY server.py .
+COPY doc/config.json config.json* ./
 
 ENTRYPOINT ["python3", "-u", "server.py", "8123"]
