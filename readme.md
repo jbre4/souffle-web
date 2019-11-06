@@ -61,3 +61,4 @@ Start the server then navigate to `[hostname]/test` in your browser and click `r
 - [Configuration](doc/config.md)
 - [API documentation](doc/api.md)
 - [Tutorial documentation](doc/tutorials.md)
+- [Security](doc/security.md)
