@@ -52,6 +52,10 @@ This will force the latest version of `souffle` to be cloned and built upon imag
 - Python 3.7
 - [souffle](https://github.com/souffle-lang/souffle)
 
+## Automated tests
+
+Start the server then navigate to `[hostname]/test` in your browser and click `run tests`. This will run the test suite.
+
 ## Documentation
 
 - [Configuration](doc/config.md)
