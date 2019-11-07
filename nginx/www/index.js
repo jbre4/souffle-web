@@ -24,7 +24,7 @@ var nonEmpty = false;
 var editor = CodeMirror.fromTextArea(byId("code"), {
   styleActiveLine: true,
   lineNumbers: true,
-  lineWrapping: true,
+  lineWrapping: false,
   mode: "souffle2",
 });
 
