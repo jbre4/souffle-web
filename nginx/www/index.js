@@ -52,26 +52,26 @@ function do_post() {
 				showStatus("Could not connect to the server");
 				return;
 			}
-			
+
 			try {
 				showStatus(this.response.error);
 			}
 			catch (e) {
 				showStatus(`Server does not seem to be configured correctly (returned ${this.status} ${this.statusText})`);
 			}
-			
+
 			return;
 		}
 
 		var resp = this.response;
-		
+
 		if (resp.return_code != 0) {
 			showStatus("Souffle process returned " + resp.return_code);
 		}
 		else {
 			hide(run_status);
 		}
-		
+
 		resp_stdout.value = resp.stdout;
 		resp_stderr.value = resp.stderr;
 	}
@@ -273,7 +273,7 @@ function createTable(name, nc) {
 function addTable() {
   var name = byId("name_of_table").value;
   var n_cols = byId("num_of_col").value;
-  
+
   if (createTable(name, n_cols) != null) {
 	  closeForm();
   }
@@ -350,7 +350,7 @@ async function fill_code(prefill) {
     if (prefill == "preserve") {
         return;
     }
-    
+
     resp_stdout.value = "";
 	resp_stderr.value = "";
 	hide(run_status);
@@ -608,7 +608,7 @@ function download() {
 function downloadZip() {
   var zip = new JSZip();
   zip.file("Soufflé-Web-Code.dl", editor.getValue());
-  zip.file("Soufflé-Web-Output.txt", byId("output").value);
+  zip.file("Soufflé-Web-Output.txt", byId("stdout_container").value);
 
   for (let tab of getAllTabs()) {
     table = {
