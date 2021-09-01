@@ -440,6 +440,10 @@ a {
     margin-left: 24px;
 }
 
+.status-error {
+    color: rgb(240, 0, 0);
+}
+
 #File {
   display:none;
 }

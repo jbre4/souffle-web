@@ -34,9 +34,24 @@ var resp_stdout = byId("stdout");
 var resp_stderr = byId("stderr");
 var run_status = byId("status");
 
-function showStatus(str) {
-	run_status.innerText = str;
-	show(run_status);
+function showStatus(str, error = false) {
+    if (error) {
+	run_status.classList.add("status-error");
+    }
+    else {
+	run_status.classList.remove("status-error");
+    }
+    
+    run_status.innerText = str;
+    show(run_status);
+}
+
+function showError(str) {
+    showStatus(str, true);
+}
+
+function clearStatus() {
+    hide(run_status);
 }
 
 function do_post() {
@@ -49,15 +64,15 @@ function do_post() {
 
 		if (this.status != 200) {
 			if (this.status == 0) {
-				showStatus("Could not connect to the server");
+				showError("Could not connect to the server");
 				return;
 			}
 
 			try {
-				showStatus(this.response.error);
+				showError(this.response.error);
 			}
 			catch (e) {
-				showStatus(`Server does not seem to be configured correctly (returned ${this.status} ${this.statusText})`);
+				showError(`Server does not seem to be configured correctly (returned ${this.status} ${this.statusText})`);
 			}
 
 			return;
@@ -66,7 +81,7 @@ function do_post() {
 		var resp = this.response;
 
 		if (resp.return_code != 0) {
-			showStatus("Souffle process returned " + resp.return_code);
+			showError("Souffle process returned " + resp.return_code);
 		}
 		else {
 			hide(run_status);
