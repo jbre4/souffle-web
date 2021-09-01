@@ -536,40 +536,6 @@ async function main() {
 
 window.onload = main;
 
-function simulateClick(){
-  var a = $("#File").click();
-}
-
-function upload(){
-  var resp = byId("File").files[0];
-  var reader = new FileReader();
-
-  reader.onload = function()
-  {
-     editor.setValue(this.result);
-  };
-  reader.readAsText(resp);
-  byId("File").value="";
-  return;
-}
-
-
-function download() {
-  var file = new Blob([editor.getValue()], {type: "text/plain"});
-
-  var a = document.createElement("a"),
-        url = URL.createObjectURL(file);
-  a.href = url;
-  a.classList.add("hide");
-  a.download = "Soufflé-Web-Code.dl";
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(function() {
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-  }, 0);
-}
-
 function downloadZip() {
   var zip = new JSZip();
   zip.file("Soufflé-Web-Code.dl", editor.getValue());
