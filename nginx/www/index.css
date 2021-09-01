@@ -382,11 +382,11 @@ a {
     background-color: #c0c0c0;
 }
 
-#sidehandle > input {
+#sidehandle > img {
     max-width: 10px;
 }
 
-#sidehandle.expanded > input {
+#sidehandle.expanded > img {
     transform: scale(-1, 1);
 }
 
